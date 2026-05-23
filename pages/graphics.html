@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en" class="page-graphics">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Graphics Design — PAULI_B</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300;1,600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Space+Grotesk:wght@300;400;500;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="../css/global.css"/>
+  <link rel="stylesheet" href="../css/pages.css"/>
+  <style>
+    /* Override global cursor colors for graphics cream theme */
+    .cur-dot { background: #b83225; box-shadow: 0 0 12px #b83225; }
+    .cur-ring { border-color: rgba(184,50,37,.5); }
+    /* Nav overrides for light bg */
+    .nav-logo-img { border-color: rgba(184,50,37,.3); }
+    /* Footer on cream */
+    .footer { background: var(--bg2); }
+    .footer-logo-text em { color: var(--accent); }
+    .footer-nav a:hover { color: var(--accent); }
+    /* Overline */
+    .overline { color: var(--accent); }
+    .overline::before { background: var(--accent); }
+    /* Buttons */
+    .btn-primary { background: var(--accent); }
+    .btn-primary:hover { background: var(--acl); }
+    .btn-outline { border-color: var(--acb); color: var(--text); }
+    .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+    /* Gallery items */
+    .g-item { background: var(--bg3); border: 1px solid var(--acb); }
+    .gallery-empty { background: var(--bg2); }
+    .gallery-empty h4 { color: var(--text); }
+    /* Pills */
+    .pill { border-color: var(--acb); color: var(--accent); }
+    .pill:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
+    /* Filter buttons */
+    .filt { border-color: var(--acb); color: var(--dim); }
+    .filt.active, .filt:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
+    /* Marquee on cream */
+    .marquee-wrap { background: var(--bg2); border-color: var(--acb); }
+    .marquee-track span { color: var(--dim); }
+    .marquee-track .mdot { color: var(--accent); }
+  </style>
+</head>
+<body data-cursor="pencil">
+
+  <div class="cur" id="cur">
+    <div class="cur-dot"></div>
+    <div class="cur-ring"></div>
+    <!-- Pencil cursor icon -->
+    <div style="position:absolute;top:-18px;left:-2px;pointer-events:none;font-size:18px;transform:rotate(-45deg);filter:drop-shadow(0 0 4px rgba(184,50,37,.5))">✏️</div>
+  </div>
+
+  <nav class="nav" id="nav">
+    <a href="../index.html" class="nav-logo">
+      <img src="../assets/logo.jpg" alt="PB" class="nav-logo-img"/>
+      <span class="nav-logo-text">PAULI<em>_B</em></span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="graphics.html" class="active">Graphics</a></li>
+      <li><a href="webdev.html">Web Dev</a></li>
+      <li><a href="film.html">Film</a></li>
+    </ul>
+    <a href="webdev.html" class="nav-cta">Web Dev →</a>
+    <button class="nav-burger" id="burger"><span></span><span></span></button>
+  </nav>
+
+  <div class="mob-menu" id="mobMenu">
+    <button class="mob-close" id="mobClose">✕</button>
+    <nav class="mob-nav">
+      <a href="../index.html">Home</a>
+      <a href="graphics.html">Graphics</a>
+      <a href="webdev.html">Web Dev</a>
+      <a href="film.html">Film</a>
+    </nav>
+    <div class="mob-footer">
+      <img src="../assets/logo.jpg" alt="PB" class="mob-logo"/>
+      <span>PAULI_B © 2025</span>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <section class="g-hero">
+    <div class="g-hero-bg">
+      <div class="g-blob1 g-hero-blob"></div>
+      <div class="g-blob2 g-hero-blob"></div>
+    </div>
+    <!-- Compass decoration -->
+    <svg class="g-compass" viewBox="0 0 200 200" fill="none" stroke="#18130d" stroke-width=".8">
+      <circle cx="100" cy="100" r="90" stroke-dasharray="4 6" opacity=".6"/>
+      <circle cx="100" cy="100" r="65" opacity=".4"/>
+      <circle cx="100" cy="100" r="40" stroke="#b83225" stroke-dasharray="2 4" opacity=".7"/>
+      <line x1="100" y1="10" x2="100" y2="190" opacity=".3"/>
+      <line x1="10" y1="100" x2="190" y2="100" opacity=".3"/>
+      <line x1="30" y1="30" x2="170" y2="170" opacity=".15"/>
+      <line x1="170" y1="30" x2="30" y2="170" opacity=".15"/>
+      <circle cx="100" cy="100" r="5" fill="#b83225" opacity=".7"/>
+      <polygon points="100,14 104,24 96,24" fill="#18130d" opacity=".4"/>
+      <polygon points="186,100 176,104 176,96" fill="#18130d" opacity=".4"/>
+      <polygon points="100,186 104,176 96,176" fill="#18130d" opacity=".4"/>
+      <polygon points="14,100 24,104 24,96" fill="#18130d" opacity=".4"/>
+    </svg>
+
+    <div class="g-hero-content reveal-up">
+      <p class="overline">Discipline One — Ink &amp; Vision</p>
+      <h1 class="g-hero-title" style="font-family:'Playfair Display',serif;font-size:clamp(4rem,10vw,9rem);font-weight:400;line-height:.88;letter-spacing:-.02em;margin-bottom:1.5rem">
+        Graphics<br/><em>Design</em>
+      </h1>
+      <p style="font-size:clamp(.85rem,1.5vw,1rem);color:var(--dim);max-width:460px;line-height:1.8">
+        Visual identities that speak before words. Every mark placed with artistic intention — from brand systems to editorial masterpieces.
+      </p>
+      <div class="g-hero-btns">
+        <a href="#gallery" class="btn-primary">View Gallery</a>
+        <a href="#process" class="btn-outline">Our Process</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Showcase strip -->
+  <div class="g-strip-wrap">
+    <div class="g-strip" id="gStrip">
+      <div class="g-strip-item"><div class="g-strip-ph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><span>Upload artwork</span></div></div>
+      <div class="g-strip-item"><div class="g-strip-ph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><span>Upload artwork</span></div></div>
+      <div class="g-strip-item"><div class="g-strip-ph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><span>Upload artwork</span></div></div>
+      <div class="g-strip-item"><div class="g-strip-ph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><span>Upload artwork</span></div></div>
+      <div class="g-strip-item"><div class="g-strip-ph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><span>Upload artwork</span></div></div>
+    </div>
+  </div>
+
+  <!-- Gallery -->
+  <section class="gallery-section" id="gallery" style="background:var(--bg)">
+    <div class="gallery-top">
+      <div>
+        <p class="overline">Portfolio</p>
+        <h2 style="font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,3rem);font-weight:400">Selected <em style="font-style:italic;color:var(--accent)">Works</em></h2>
+      </div>
+      <div class="filter-row">
+        <button class="filt active" data-filter="all">All</button>
+        <button class="filt" data-filter="branding">Branding</button>
+        <button class="filt" data-filter="print">Print</button>
+        <button class="filt" data-filter="digital">Digital</button>
+        <button class="filt" data-filter="illustration">Illustration</button>
+      </div>
+    </div>
+    <div class="gallery-grid" id="gGallery">
+      <div class="gallery-empty" style="grid-column:1/-1;text-align:center;padding:6rem 2rem;background:var(--bg2)">
+        <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width=".8" style="margin:0 auto 1.5rem;opacity:.2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+        <h4 style="font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:400;margin-bottom:.5rem">No Artwork Yet</h4>
+        <p style="font-size:.85rem;color:var(--dim)">Upload your graphics via the Admin Panel under the Graphics category.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Marquee -->
+  <div class="marquee-wrap">
+    <div class="marquee-track">
+      <span>BRAND IDENTITY</span><span class="mdot">·</span><span>TYPOGRAPHY</span><span class="mdot">·</span><span>ILLUSTRATION</span><span class="mdot">·</span><span>PRINT DESIGN</span><span class="mdot">·</span><span>UI / UX</span><span class="mdot">·</span><span>MOTION GRAPHICS</span><span class="mdot">·</span><span>BRAND IDENTITY</span><span class="mdot">·</span><span>TYPOGRAPHY</span><span class="mdot">·</span><span>ILLUSTRATION</span><span class="mdot">·</span><span>PRINT DESIGN</span><span class="mdot">·</span><span>UI / UX</span><span class="mdot">·</span><span>MOTION GRAPHICS</span><span class="mdot">·</span>
+    </div>
+  </div>
+
+  <!-- Skills -->
+  <section class="g-skills">
+    <p class="overline">Toolkit</p>
+    <h2 style="font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,3rem);font-weight:400;margin-bottom:.5rem">Skills &amp; <em style="font-style:italic;color:var(--accent)">Software</em></h2>
+    <div class="g-skills-grid">
+      <span class="pill reveal-fade">Adobe Photoshop</span><span class="pill reveal-fade">Adobe Illustrator</span><span class="pill reveal-fade">Adobe InDesign</span><span class="pill reveal-fade">Figma</span><span class="pill reveal-fade">After Effects</span><span class="pill reveal-fade">Brand Identity</span><span class="pill reveal-fade">Typography</span><span class="pill reveal-fade">Print Design</span><span class="pill reveal-fade">UI / UX Design</span><span class="pill reveal-fade">Illustration</span><span class="pill reveal-fade">Motion Graphics</span><span class="pill reveal-fade">Packaging Design</span>
+    </div>
+  </section>
+
+  <!-- Process -->
+  <section class="g-process" id="process">
+    <p class="overline">Methodology</p>
+    <h2 style="font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,3rem);font-weight:400">The Creative <em style="font-style:italic;color:var(--accent)">Process</em></h2>
+    <div class="g-process-grid">
+      <div class="g-process-item reveal-up"><div class="g-step-num">01</div><h3 class="g-step-title">Discovery</h3><p class="g-step-desc">Deep dive into your brand, audience, and vision before a single mark is made.</p></div>
+      <div class="g-process-item reveal-up delay-1"><div class="g-step-num">02</div><h3 class="g-step-title">Concept</h3><p class="g-step-desc">Mood boards, sketches, and directional frameworks that shape the visual language.</p></div>
+      <div class="g-process-item reveal-up delay-2"><div class="g-step-num">03</div><h3 class="g-step-title">Refine</h3><p class="g-step-desc">Collaborative feedback loops sharpening every detail until it sings.</p></div>
+      <div class="g-process-item reveal-up delay-3"><div class="g-step-num">04</div><h3 class="g-step-title">Deliver</h3><p class="g-step-desc">Final assets with brand guidelines, ready for every medium and context.</p></div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand"><img src="../assets/logo.jpg" alt="PB" class="footer-logo-img"/><div><div class="footer-logo-text">PAULI<em>_B</em></div><p>Crafting extraordinary experiences.</p></div></div>
+        <nav class="footer-nav"><a href="graphics.html">Graphics</a><a href="webdev.html">Web Dev</a><a href="film.html">Film</a></nav>
+      </div>
+      <div class="footer-bottom"><p>© 2025 Pauli_B. All rights reserved.</p></div>
+    </div>
+  </footer>
+
+  <script src="../js/storage.js"></script>
+  <script src="../js/gallery-loader.js"></script>
+  <script src="../js/global.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () =>
+      loadPageFiles('graphics', { gallery: 'gGallery', strip: 'gStrip' })
+    );
+  </script>
+</body>
+</html>

@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>PAULI_B — Creative Studio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300;1,600&family=Space+Grotesk:wght@300;400;500;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="css/global.css"/>
+  <link rel="stylesheet" href="css/home.css"/>
+</head>
+<body class="page-home" data-cursor="default">
+
+  <!-- Custom cursor -->
+  <div class="cur" id="cur">
+    <div class="cur-dot"></div>
+    <div class="cur-ring"></div>
+    <div class="cur-label" id="curLabel"></div>
+  </div>
+
+  <!-- NAV -->
+  <nav class="nav" id="nav">
+    <a href="index.html" class="nav-logo">
+      <img src="assets/logo.jpg" alt="PB" class="nav-logo-img"/>
+      <span class="nav-logo-text">PAULI<em>_B</em></span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html" class="active">Home</a></li>
+      <li><a href="pages/graphics.html">Graphics</a></li>
+      <li><a href="pages/webdev.html">Web Dev</a></li>
+      <li><a href="pages/film.html">Film</a></li>
+    </ul>
+    <a href="pages/graphics.html" class="nav-cta">View Work</a>
+    <button class="nav-burger" id="burger" aria-label="Menu">
+      <span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- Mobile menu -->
+  <div class="mob-menu" id="mobMenu">
+    <button class="mob-close" id="mobClose">&#x2715;</button>
+    <nav class="mob-nav">
+      <a href="index.html">Home</a>
+      <a href="pages/graphics.html">Graphics</a>
+      <a href="pages/webdev.html">Web Dev</a>
+      <a href="pages/film.html">Film</a>
+    </nav>
+    <div class="mob-footer">
+      <img src="assets/logo.jpg" alt="PB" class="mob-logo"/>
+      <span>PAULI_B &copy; 2025</span>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg">
+      <div class="hero-orb orb1"></div>
+      <div class="hero-orb orb2"></div>
+      <div class="hero-orb orb3"></div>
+      <div class="hero-grid"></div>
+    </div>
+
+    <div class="hero-content">
+      <div class="hero-badge">
+        <span class="badge-dot"></span>
+        Creative Studio — Est. 2017
+      </div>
+      <h1 class="hero-title">
+        <span class="ht-line">
+          <span class="ht-word reveal-up">Visual</span>
+        </span>
+        <span class="ht-line">
+          <span class="ht-word reveal-up delay-1">Storytelling</span>
+        </span>
+        <span class="ht-line accent-line">
+          <span class="ht-word reveal-up delay-2">Redefined.</span>
+        </span>
+      </h1>
+      <p class="hero-sub reveal-fade delay-3">
+        Graphics Design · Web Development · Film &amp; Motion.<br/>
+        Three disciplines. One vision.
+      </p>
+      <div class="hero-btns reveal-fade delay-4">
+        <a href="pages/graphics.html" class="btn-primary">Explore Work</a>
+        <a href="pages/film.html" class="btn-outline">
+          <span class="btn-play">&#9654;</span> Watch Reel
+        </a>
+      </div>
+    </div>
+
+    <div class="hero-img-wrap">
+      <div class="hero-img-frame">
+        <img src="assets/logo.jpg" alt="Pauli_B" class="hero-img"/>
+        <div class="hero-img-overlay"></div>
+      </div>
+      <div class="hero-img-tag">Creative Director</div>
+    </div>
+
+    <div class="hero-scroll">
+      <div class="scroll-track"><div class="scroll-thumb"></div></div>
+      <span>Scroll</span>
+    </div>
+
+    <!-- Stats bar -->
+    <div class="hero-stats">
+      <div class="hstat">
+        <span class="hstat-num" data-count="120">0</span><span>+</span>
+        <p>Projects</p>
+      </div>
+      <div class="hstat-sep"></div>
+      <div class="hstat">
+        <span class="hstat-num" data-count="48">0</span><span>+</span>
+        <p>Clients</p>
+      </div>
+      <div class="hstat-sep"></div>
+      <div class="hstat">
+        <span class="hstat-num" data-count="7">0</span>
+        <p>Years</p>
+      </div>
+      <div class="hstat-sep"></div>
+      <div class="hstat play-trigger">
+        <span class="play-icon">&#9654;</span>
+        <p>Play Reel</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- DISCIPLINES — 3 cards like the reference bottom bar -->
+  <section class="disciplines">
+    <div class="disc-header">
+      <p class="overline">What I Do</p>
+      <h2>Three Worlds.<br/><em>One Creator.</em></h2>
+    </div>
+    <div class="disc-grid">
+
+      <a href="pages/graphics.html" class="disc-card" data-color="#c0392b" data-cursor="pencil">
+        <div class="disc-card-bg"></div>
+        <div class="disc-num">01</div>
+        <div class="disc-icon">
+          <!-- Pencil SVG -->
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M46 6L58 18L20 56H8V44L46 6Z"/>
+            <path d="M38 14L50 26"/>
+            <path d="M8 44L20 56"/>
+          </svg>
+        </div>
+        <h3>Graphics<br/>Design</h3>
+        <p>Brand identities, visual systems &amp; editorial art that communicate before words.</p>
+        <div class="disc-arrow">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </div>
+        <div class="disc-tag">Branding · Print · Digital</div>
+      </a>
+
+      <a href="pages/webdev.html" class="disc-card featured" data-color="#1a1a2e" data-cursor="code">
+        <div class="disc-card-bg"></div>
+        <div class="disc-num">02</div>
+        <div class="disc-icon">
+          <!-- Monitor/Code SVG -->
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.5">
+            <rect x="4" y="8" width="56" height="38" rx="3"/>
+            <path d="M4 30h56"/>
+            <path d="M22 54h20M32 46v8"/>
+            <path d="M18 20l-6 6 6 6M46 20l6 6-6 6M28 14l8 20"/>
+          </svg>
+        </div>
+        <h3>Web<br/>Development</h3>
+        <p>Pixel-perfect interfaces &amp; full-stack architectures. Code that performs and endures.</p>
+        <div class="disc-arrow">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </div>
+        <div class="disc-tag">React · Node · TypeScript</div>
+      </a>
+
+      <a href="pages/film.html" class="disc-card" data-color="#0d0016" data-cursor="reel">
+        <div class="disc-card-bg"></div>
+        <div class="disc-num">03</div>
+        <div class="disc-icon">
+          <!-- Film reel SVG -->
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.5">
+            <circle cx="32" cy="32" r="26"/>
+            <circle cx="32" cy="32" r="8"/>
+            <circle cx="32" cy="12" r="4"/>
+            <circle cx="32" cy="52" r="4"/>
+            <circle cx="12" cy="32" r="4"/>
+            <circle cx="52" cy="32" r="4"/>
+            <circle cx="18" cy="18" r="4"/>
+            <circle cx="46" cy="46" r="4"/>
+            <circle cx="46" cy="18" r="4"/>
+            <circle cx="18" cy="46" r="4"/>
+          </svg>
+        </div>
+        <h3>Film &amp;<br/>Motion</h3>
+        <p>Cinematic stories told through light, motion &amp; rhythm. Productions that move people.</p>
+        <div class="disc-arrow">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </div>
+        <div class="disc-tag">Cinematography · Editing</div>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- MARQUEE STRIP -->
+  <div class="marquee-wrap">
+    <div class="marquee-track">
+      <span>PAULI_B</span><span class="mdot">·</span>
+      <span>GRAPHICS DESIGN</span><span class="mdot">·</span>
+      <span>WEB DEVELOPMENT</span><span class="mdot">·</span>
+      <span>FILM &amp; MOTION</span><span class="mdot">·</span>
+      <span>CREATIVE STUDIO</span><span class="mdot">·</span>
+      <span>PAULI_B</span><span class="mdot">·</span>
+      <span>GRAPHICS DESIGN</span><span class="mdot">·</span>
+      <span>WEB DEVELOPMENT</span><span class="mdot">·</span>
+      <span>FILM &amp; MOTION</span><span class="mdot">·</span>
+      <span>CREATIVE STUDIO</span><span class="mdot">·</span>
+    </div>
+  </div>
+
+  <!-- ABOUT TEASER -->
+  <section class="about-teaser">
+    <div class="at-img">
+      <div class="at-img-frame">
+        <img src="assets/logo.jpg" alt="Pauli_B"/>
+      </div>
+      <div class="at-badge-float">
+        <span>7</span>
+        <p>Years of<br/>Practice</p>
+      </div>
+    </div>
+    <div class="at-text">
+      <p class="overline">The Creator</p>
+      <h2>Where Art Meets<br/><em>Technology</em></h2>
+      <p class="at-body">A multidisciplinary creative at the crossroads of graphic design, web development, and cinematic filmmaking. Every project is an act of intention — shapes that communicate, code that performs, images that linger long after the screen goes dark.</p>
+      <div class="at-skills">
+        <span>Brand Identity</span>
+        <span>UI / UX Design</span>
+        <span>Full-Stack Dev</span>
+        <span>Cinematography</span>
+        <span>Motion Graphics</span>
+        <span>Art Direction</span>
+      </div>
+      <a href="pages/graphics.html" class="btn-primary" style="margin-top:2rem;display:inline-flex">See My Work</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <img src="assets/logo.jpg" alt="PB" class="footer-logo-img"/>
+          <div>
+            <div class="footer-logo-text">PAULI<em>_B</em></div>
+            <p>Crafting extraordinary experiences.</p>
+          </div>
+        </div>
+        <nav class="footer-nav">
+          <a href="pages/graphics.html">Graphics Design</a>
+          <a href="pages/webdev.html">Web Development</a>
+          <a href="pages/film.html">Film &amp; Motion</a>
+        </nav>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025 Pauli_B. All rights reserved.</p>
+        <p class="footer-secret">Made with intention.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/global.js"></script>
+</body>
+</html>

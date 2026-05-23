@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en" class="page-film">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Film & Motion — PAULI_B</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300;1,600&family=Space+Grotesk:wght@300;400;500;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="../css/global.css"/>
+  <link rel="stylesheet" href="../css/pages.css"/>
+  <style>
+    .cur-dot { background: #e8a020 !important; box-shadow: 0 0 14px #e8a020 !important; }
+    .cur-ring { border-color: rgba(232,160,32,.5) !important; }
+    .overline { color: var(--accent); }
+    .overline::before { background: var(--accent); }
+    .footer { background: var(--bg2); border-color: var(--acb); }
+    .footer-logo-text em { color: var(--accent); }
+    .btn-primary { background: var(--accent); color: #000; }
+    .btn-primary:hover { background: var(--acl); }
+    .btn-outline { border-color: var(--acb); color: var(--text); }
+    .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+    .filt { border-color: var(--acb); color: var(--dim); }
+    .filt.active, .filt:hover { background: var(--accent); color: #000; border-color: var(--accent); }
+    .v-play { background: var(--accent); }
+    .v-play svg { fill: #000; }
+    .v-tag { color: var(--accent); }
+    .marquee-wrap { background: var(--bg2); border-color: var(--acb); }
+    .marquee-track .mdot { color: var(--accent); }
+    /* Spinning reel cursor icon */
+    .reel-icon { position: absolute; top: -18px; left: -18px; font-size: 24px; pointer-events: none; animation: spinReel 2s linear infinite; filter: drop-shadow(0 0 6px rgba(232,160,32,.6)); }
+    @keyframes spinReel { to { transform: rotate(360deg); } }
+  </style>
+</head>
+<body data-cursor="reel">
+
+  <div class="cur" id="cur">
+    <div class="cur-dot"></div>
+    <div class="cur-ring"></div>
+    <!-- Spinning reel icon -->
+    <div class="reel-icon">🎬</div>
+  </div>
+
+  <nav class="nav" id="nav">
+    <a href="../index.html" class="nav-logo">
+      <img src="../assets/logo.jpg" alt="PB" class="nav-logo-img"/>
+      <span class="nav-logo-text">PAULI<em>_B</em></span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="graphics.html">Graphics</a></li>
+      <li><a href="webdev.html">Web Dev</a></li>
+      <li><a href="film.html" class="active">Film</a></li>
+    </ul>
+    <a href="../index.html" class="nav-cta">Home ↑</a>
+    <button class="nav-burger" id="burger"><span></span><span></span></button>
+  </nav>
+
+  <div class="mob-menu" id="mobMenu">
+    <button class="mob-close" id="mobClose">✕</button>
+    <nav class="mob-nav">
+      <a href="../index.html">Home</a><a href="graphics.html">Graphics</a><a href="webdev.html">Web Dev</a><a href="film.html">Film</a>
+    </nav>
+    <div class="mob-footer"><img src="../assets/logo.jpg" alt="PB" class="mob-logo"/><span>PAULI_B © 2025</span></div>
+  </div>
+
+  <!-- SHOWREEL — full cinematic width -->
+  <div class="f-reel" id="fReel" style="position:relative;z-index:2">
+    <div id="fReelPh" class="f-reel-ph">
+      <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1">
+        <circle cx="32" cy="32" r="26"/>
+        <circle cx="32" cy="32" r="8"/>
+        <circle cx="32" cy="12" r="4"/><circle cx="32" cy="52" r="4"/>
+        <circle cx="12" cy="32" r="4"/><circle cx="52" cy="32" r="4"/>
+        <circle cx="18" cy="18" r="4"/><circle cx="46" cy="46" r="4"/>
+        <circle cx="46" cy="18" r="4"/><circle cx="18" cy="46" r="4"/>
+      </svg>
+      <h3>Upload Your Showreel</h3>
+      <p>Tag a video as <em style="color:var(--accent)">showreel</em> in the Admin Panel → Film</p>
+    </div>
+  </div>
+
+  <!-- Film strip -->
+  <div class="f-strip-wrap">
+    <div class="f-strip" id="fStrip">
+      <div class="f-frame"><div class="f-frame-ph">▶</div></div>
+      <div class="f-frame"><div class="f-frame-ph">▶</div></div>
+      <div class="f-frame"><div class="f-frame-ph">▶</div></div>
+      <div class="f-frame"><div class="f-frame-ph">▶</div></div>
+      <div class="f-frame"><div class="f-frame-ph">▶</div></div>
+      <div class="f-frame"><div class="f-frame-ph">▶</div></div>
+      <div class="f-frame"><div class="f-frame-ph">▶</div></div>
+      <div class="f-frame"><div class="f-frame-ph">▶</div></div>
+    </div>
+  </div>
+
+  <!-- Hero -->
+  <section class="f-hero">
+    <div class="f-hero-bg"></div>
+    <div class="f-hero-content reveal-up">
+      <p class="overline">Discipline Three — Noir &amp; Amber</p>
+      <h1>Film &amp;<br/><em>Motion</em></h1>
+      <p>Stories told through light, shadow and rhythm. Cinematic productions that move people — literally and emotionally.</p>
+      <div style="margin-top:2.5rem;display:flex;gap:1rem;flex-wrap:wrap">
+        <a href="#productions" class="btn-primary">View Productions</a>
+        <a href="#awards" class="btn-outline">Awards</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Genre filter -->
+  <div class="f-genres" style="position:relative;z-index:2">
+    <button class="filt active" data-filter="all">All</button>
+    <button class="filt" data-filter="documentary">Documentary</button>
+    <button class="filt" data-filter="commercial">Commercial</button>
+    <button class="filt" data-filter="narrative">Narrative</button>
+    <button class="filt" data-filter="music-video">Music Video</button>
+    <button class="filt" data-filter="motion">Motion Graphics</button>
+  </div>
+
+  <!-- Video grid -->
+  <section class="video-section section" id="productions" style="position:relative;z-index:2">
+    <div class="section-header">
+      <p class="overline">Film Portfolio</p>
+      <h2 style="font-family:var(--serif);font-size:clamp(2rem,4vw,3rem);font-weight:300;margin-bottom:2rem">Selected <em style="font-style:italic;color:var(--accent)">Productions</em></h2>
+    </div>
+    <div class="video-grid" id="fVideos">
+      <div class="v-card">
+        <div class="v-thumb" style="padding:2rem;flex-direction:column;gap:.5rem">
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" style="margin:0 auto;opacity:.25"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          <p style="font-size:.72rem;color:var(--dim);text-align:center">Upload video in Admin → Film</p>
+        </div>
+        <div class="v-info"><h4 style="font-family:var(--serif)">Your Film Project</h4><p>Upload via Admin Panel</p><div class="v-meta"><span class="v-tag">Film</span></div></div>
+      </div>
+      <div class="v-card">
+        <div class="v-thumb" style="padding:2rem;flex-direction:column;gap:.5rem">
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" style="margin:0 auto;opacity:.25"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          <p style="font-size:.72rem;color:var(--dim);text-align:center">Upload video in Admin → Film</p>
+        </div>
+        <div class="v-info"><h4 style="font-family:var(--serif)">Your Film Project</h4><p>Upload via Admin Panel</p><div class="v-meta"><span class="v-tag">Film</span></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Marquee -->
+  <div class="marquee-wrap" style="position:relative;z-index:2">
+    <div class="marquee-track">
+      <span>CINEMATOGRAPHY</span><span class="mdot">·</span><span>DOCUMENTARY</span><span class="mdot">·</span><span>COMMERCIAL</span><span class="mdot">·</span><span>MUSIC VIDEO</span><span class="mdot">·</span><span>MOTION GRAPHICS</span><span class="mdot">·</span><span>COLOR GRADING</span><span class="mdot">·</span><span>CINEMATOGRAPHY</span><span class="mdot">·</span><span>DOCUMENTARY</span><span class="mdot">·</span><span>COMMERCIAL</span><span class="mdot">·</span><span>MUSIC VIDEO</span><span class="mdot">·</span><span>MOTION GRAPHICS</span><span class="mdot">·</span><span>COLOR GRADING</span><span class="mdot">·</span>
+    </div>
+  </div>
+
+  <!-- Awards -->
+  <section class="section" id="awards" style="background:var(--bg2);border-top:1px solid var(--acb);position:relative;z-index:2">
+    <p class="overline">Recognition</p>
+    <h2 style="font-family:var(--serif);font-size:clamp(2rem,4vw,3rem);font-weight:300;margin-bottom:2.5rem">Awards &amp; <em style="font-style:italic;color:var(--accent)">Festivals</em></h2>
+    <div class="f-awards-grid" id="awards">
+      <div class="f-award-card reveal-up"><div class="f-award-year">2024</div><h3 class="f-award-title">Best Cinematography</h3><p class="f-award-evt">Your Festival Here</p></div>
+      <div class="f-award-card reveal-up delay-1"><div class="f-award-year">2023</div><h3 class="f-award-title">Best Short Film</h3><p class="f-award-evt">Your Festival Here</p></div>
+      <div class="f-award-card reveal-up delay-2"><div class="f-award-year">2023</div><h3 class="f-award-title">Official Selection</h3><p class="f-award-evt">Your Festival Here</p></div>
+      <div class="f-award-card reveal-up delay-3"><div class="f-award-year">2022</div><h3 class="f-award-title">Directors Award</h3><p class="f-award-evt">Your Festival Here</p></div>
+    </div>
+  </section>
+
+  <!-- Video modal -->
+  <div class="v-modal" id="vModal">
+    <div class="v-modal-inner">
+      <button class="v-modal-close">✕</button>
+      <video id="vModalVid" controls></video>
+    </div>
+  </div>
+
+  <footer class="footer" style="position:relative;z-index:2">
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand"><img src="../assets/logo.jpg" alt="PB" class="footer-logo-img"/><div><div class="footer-logo-text">PAULI<em>_B</em></div><p>Crafting extraordinary experiences.</p></div></div>
+        <nav class="footer-nav"><a href="graphics.html">Graphics</a><a href="webdev.html">Web Dev</a><a href="film.html">Film</a></nav>
+      </div>
+      <div class="footer-bottom"><p>© 2025 Pauli_B. All rights reserved.</p></div>
+    </div>
+  </footer>
+
+  <script src="../js/storage.js"></script>
+  <script src="../js/gallery-loader.js"></script>
+  <script src="../js/global.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () =>
+      loadPageFiles('film', { videos: 'fVideos', filmStrip: 'fStrip', reel: 'fReel', reelPh: 'fReelPh' })
+    );
+  </script>
+</body>
+</html>

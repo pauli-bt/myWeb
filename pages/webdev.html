@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en" class="page-webdev">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Web Development — PAULI_B</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&family=Cormorant+Garamond:ital,wght@0,300;1,300&family=Space+Grotesk:wght@300;400;500;700&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="../css/global.css"/>
+  <link rel="stylesheet" href="../css/pages.css"/>
+  <style>
+    :root { font-family: 'Space Grotesk', sans-serif; }
+    .cur-dot { background: #39ff14 !important; box-shadow: 0 0 14px #39ff14 !important; }
+    .cur-ring { border-color: rgba(57,255,20,.45) !important; box-shadow: 0 0 20px rgba(57,255,20,.1) !important; }
+    /* Code cursor icon */
+    .cur-icon { position: absolute; top: -16px; left: 8px; font-size: 14px; pointer-events: none; }
+    .overline { color: var(--accent); }
+    .overline::before { background: var(--accent); }
+    .footer { background: var(--bg2); border-color: var(--acb); }
+    .footer-logo-text em { color: var(--accent); }
+    .btn-primary { background: var(--accent); color: #000; }
+    .btn-primary:hover { background: var(--acl); }
+    .btn-outline { border-color: var(--acb); color: var(--text); }
+    .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+    .filt { border-color: var(--acb); color: var(--dim); }
+    .filt.active, .filt:hover { background: var(--accent); color: #000; border-color: var(--accent); }
+    .v-card { background: var(--bg2); }
+    .v-play { background: var(--accent); }
+    .v-play svg { fill: #000; }
+    .v-tag { color: var(--accent); }
+    .marquee-wrap { background: var(--bg2); border-color: var(--acb); }
+    .marquee-track .mdot { color: var(--accent); }
+  </style>
+</head>
+<body data-cursor="code">
+
+  <div class="cur" id="cur">
+    <div class="cur-dot"></div>
+    <div class="cur-ring"></div>
+    <!-- Code icon -->
+    <div class="cur-icon" style="font-size:15px;color:#39ff14;filter:drop-shadow(0 0 5px #39ff14)">&lt;/&gt;</div>
+  </div>
+
+  <nav class="nav" id="nav">
+    <a href="../index.html" class="nav-logo">
+      <img src="../assets/logo.jpg" alt="PB" class="nav-logo-img"/>
+      <span class="nav-logo-text">PAULI<em>_B</em></span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="graphics.html">Graphics</a></li>
+      <li><a href="webdev.html" class="active">Web Dev</a></li>
+      <li><a href="film.html">Film</a></li>
+    </ul>
+    <a href="film.html" class="nav-cta">Film →</a>
+    <button class="nav-burger" id="burger"><span></span><span></span></button>
+  </nav>
+
+  <div class="mob-menu" id="mobMenu">
+    <button class="mob-close" id="mobClose">✕</button>
+    <nav class="mob-nav">
+      <a href="../index.html">Home</a><a href="graphics.html">Graphics</a><a href="webdev.html">Web Dev</a><a href="film.html">Film</a>
+    </nav>
+    <div class="mob-footer"><img src="../assets/logo.jpg" alt="PB" class="mob-logo"/><span>PAULI_B © 2025</span></div>
+  </div>
+
+  <!-- HERO -->
+  <section class="w-hero">
+    <div class="w-hero-bg"></div>
+    <div class="w-hero-grid"></div>
+
+    <p class="w-hero-label reveal-fade">discipline_02.exe — Web Development</p>
+    <h1 class="reveal-up">
+      Web<br/><span class="stroke">Dev</span>
+    </h1>
+    <p class="reveal-fade delay-1">
+      From pixel-perfect interfaces to full-stack architectures. Code that performs, endures, and delights.
+    </p>
+    <div style="display:flex;gap:1rem;flex-wrap:wrap;position:relative;z-index:2">
+      <a href="#projects" class="btn-primary reveal-fade delay-2">View Projects</a>
+      <a href="#stack" class="btn-outline reveal-fade delay-2">Tech Stack</a>
+    </div>
+
+    <!-- Terminal -->
+    <div class="w-terminal reveal-up delay-3">
+      <div class="w-terminal-bar">
+        <div class="w-t-dot" style="background:#ff5f57"></div>
+        <div class="w-t-dot" style="background:#febc2e"></div>
+        <div class="w-t-dot" style="background:#28c840"></div>
+        <span>pauli_b — terminal — 80×24</span>
+      </div>
+      <div class="w-terminal-body">
+        <div class="w-t-prompt">whoami</div>
+        <div class="w-t-out">pauli_b — full-stack developer &amp; UI craftsman</div>
+        <div class="w-t-prompt">cat skills.txt</div>
+        <div class="w-t-out">React · Next.js · Vue · TypeScript · Node.js · Python · PostgreSQL · Docker · AWS</div>
+        <div class="w-t-prompt">git log --oneline -3</div>
+        <div class="w-t-comment">a3f92b1 feat: shipped pixel-perfect landing page</div>
+        <div class="w-t-comment">7c81d4e fix: optimized db queries 10× faster</div>
+        <div class="w-t-comment">2e09f3a init: new client project kickoff</div>
+        <div class="w-t-prompt">_<span class="blink">█</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tech Stack -->
+  <section class="section" id="stack" style="background:var(--bg2);border-top:1px solid var(--acb);border-bottom:1px solid var(--acb)">
+    <div class="section-header">
+      <p class="overline">Arsenal</p>
+      <h2 class="section-header" style="font-family:'Space Grotesk',sans-serif;font-size:clamp(2rem,4vw,3rem);font-weight:700;color:var(--text);margin-bottom:2rem">Tech <em style="font-style:normal;color:var(--accent)">Stack</em></h2>
+    </div>
+    <div class="tech-cloud">
+      <span class="tech-pill">React</span><span class="tech-pill">Next.js</span><span class="tech-pill">Vue.js</span><span class="tech-pill">TypeScript</span><span class="tech-pill">Tailwind CSS</span><span class="tech-pill">Node.js</span><span class="tech-pill">Express</span><span class="tech-pill">Python / Django</span><span class="tech-pill">PostgreSQL</span><span class="tech-pill">MongoDB</span><span class="tech-pill">GraphQL</span><span class="tech-pill">Docker</span><span class="tech-pill">AWS / Vercel</span><span class="tech-pill">Git / CI&amp;CD</span><span class="tech-pill">Three.js</span><span class="tech-pill">GSAP</span><span class="tech-pill">Figma → Code</span><span class="tech-pill">WebGL</span>
+    </div>
+  </section>
+
+  <!-- Video demos -->
+  <section class="video-section section">
+    <div class="section-header">
+      <p class="overline">Live Demos</p>
+      <h2 style="font-family:'Space Grotesk',sans-serif;font-size:clamp(2rem,4vw,3rem);font-weight:700;margin-bottom:2rem">Project <em style="font-style:normal;color:var(--accent)">Showcases</em></h2>
+    </div>
+    <div class="video-grid" id="wVideos">
+      <div class="v-card">
+        <div class="v-thumb" style="padding:2rem;flex-direction:column;gap:.5rem">
+          <p style="font-size:.72rem;color:var(--dim);opacity:.5;font-family:monospace">// upload_demo_video(category="webdev")</p>
+        </div>
+        <div class="v-info"><h4>Your Web Project</h4><p style="font-family:monospace;font-size:.72rem">Upload a screen recording via Admin</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects -->
+  <section class="section" id="projects" style="background:var(--bg2);border-top:1px solid var(--acb)">
+    <div class="section-header">
+      <p class="overline">Portfolio</p>
+      <h2 style="font-family:'Space Grotesk',sans-serif;font-size:clamp(2rem,4vw,3rem);font-weight:700;margin-bottom:.5rem">Selected <em style="font-style:normal;color:var(--accent)">Projects</em></h2>
+      <p style="font-size:.78rem;color:var(--dim);margin-bottom:2.5rem;font-family:monospace">// upload screenshots via Admin to populate this section</p>
+    </div>
+    <div class="w-projects-grid" id="wProjects">
+      <div class="w-proj-card" data-num="01">
+        <div class="w-proj-url">// project_01</div>
+        <h3 class="w-proj-name">Your Next Project</h3>
+        <p class="w-proj-desc">Upload screenshots tagged with your tech stack and they'll appear here automatically.</p>
+        <div class="w-proj-tags"><span class="w-proj-tag">React</span><span class="w-proj-tag">Node.js</span><span class="w-proj-tag">PostgreSQL</span></div>
+        <div class="w-proj-screen"><div class="w-proj-ph" style="color:var(--dim);font-family:monospace;font-size:.7rem">upload screenshot in Admin</div></div>
+      </div>
+      <div class="w-proj-card" data-num="02">
+        <div class="w-proj-url">// project_02</div>
+        <h3 class="w-proj-name">Another Project</h3>
+        <p class="w-proj-desc">Add tags like "ecommerce", "dashboard", "mobile" to describe your work when uploading.</p>
+        <div class="w-proj-tags"><span class="w-proj-tag">Vue.js</span><span class="w-proj-tag">Python</span><span class="w-proj-tag">Docker</span></div>
+        <div class="w-proj-screen"><div class="w-proj-ph" style="color:var(--dim);font-family:monospace;font-size:.7rem">upload screenshot in Admin</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Marquee -->
+  <div class="marquee-wrap">
+    <div class="marquee-track">
+      <span>REACT</span><span class="mdot">·</span><span>NEXT.JS</span><span class="mdot">·</span><span>NODE.JS</span><span class="mdot">·</span><span>TYPESCRIPT</span><span class="mdot">·</span><span>POSTGRESQL</span><span class="mdot">·</span><span>DOCKER</span><span class="mdot">·</span><span>AWS</span><span class="mdot">·</span><span>REACT</span><span class="mdot">·</span><span>NEXT.JS</span><span class="mdot">·</span><span>NODE.JS</span><span class="mdot">·</span><span>TYPESCRIPT</span><span class="mdot">·</span><span>POSTGRESQL</span><span class="mdot">·</span><span>DOCKER</span><span class="mdot">·</span><span>AWS</span><span class="mdot">·</span>
+    </div>
+  </div>
+
+  <!-- Video Modal -->
+  <div class="v-modal" id="vModal">
+    <div class="v-modal-inner">
+      <button class="v-modal-close">✕</button>
+      <video id="vModalVid" controls></video>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand"><img src="../assets/logo.jpg" alt="PB" class="footer-logo-img"/><div><div class="footer-logo-text">PAULI<em>_B</em></div><p>Crafting extraordinary experiences.</p></div></div>
+        <nav class="footer-nav"><a href="graphics.html">Graphics</a><a href="webdev.html">Web Dev</a><a href="film.html">Film</a></nav>
+      </div>
+      <div class="footer-bottom"><p>© 2025 Pauli_B. All rights reserved.</p><p class="footer-secret">// built with intention</p></div>
+    </div>
+  </footer>
+
+  <script src="../js/storage.js"></script>
+  <script src="../js/gallery-loader.js"></script>
+  <script src="../js/global.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () =>
+      loadPageFiles('webdev', { videos: 'wVideos', projects: 'wProjects' })
+    );
+  </script>
+</body>
+</html>
