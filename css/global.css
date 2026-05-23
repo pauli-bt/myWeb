@@ -13,13 +13,13 @@
   --bg2:      #0f0e14;
   --bg3:      #181622;
   --text:     #f0ecff;
-  --dim:      rgba(240,236,255,.5);
-  --faint:    rgba(240,236,255,.06);
-  --accent:   #a855f7;       /* purple */
-  --accent2:  #ec4899;       /* pink */
-  --acl:      #d8b4fe;
-  --acd:      rgba(168,85,247,.15);
-  --acb:      rgba(168,85,247,.25);
+  --dim:      rgb(255 247 216 / 50%);
+  --faint:    rgb(255 224 103 / 11%);
+  --accent:   #fee070;       /* purple */
+  --accent2:  #eccc18;       /* pink */
+  --acl:      #ffe067;
+  --acd:      rgb(255 224 103 / 18%);
+  --acb:      rgb(255 224 103 / 58%);
 
   /* Typography */
   --sans: 'Space Grotesk', sans-serif;
@@ -107,7 +107,7 @@ input, textarea { font-family: inherit; }
 .nav-cta {
   font-size: .8rem; font-weight: 600; letter-spacing: .06em;
   padding: .55rem 1.5rem; border-radius: 100px;
-  background: var(--accent); color: #fff;
+  background: var(--accent); color: #08070a;
   transition: all .3s var(--ease);
   box-shadow: 0 0 20px rgba(168,85,247,.0);
 }
@@ -133,7 +133,7 @@ input, textarea { font-family: inherit; }
 .btn-primary {
   display: inline-flex; align-items: center; gap: .5rem;
   padding: .8rem 2.2rem; border-radius: 100px;
-  background: var(--accent); color: #fff;
+  background: var(--accent); color: #08070a;
   font-size: .85rem; font-weight: 600; letter-spacing: .04em;
   transition: all .3s var(--ease);
   border: none; cursor: none;
