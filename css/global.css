@@ -400,3 +400,73 @@ input, textarea { font-family: inherit; }
     gap: 1.5rem;
   }
 }
+
+/* Stacked Form Configuration */
+.footer-form.stacked-form {
+  display: flex;
+  flex-direction: column;
+  background: transparent;
+  border: none;
+  padding: 0;
+  gap: 0.75rem;
+}
+
+/* Individual Form Rows */
+.footer-form .form-group {
+  background: var(--bg3);
+  border: 1px solid var(--faint);
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  transition: border-color 0.3s var(--ease);
+}
+
+.footer-form .form-group:focus-within {
+  border-color: var(--accent);
+}
+
+/* Style for text inputs & textareas */
+.footer-input, .footer-textarea {
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--text);
+  font-size: 0.85rem;
+  width: 100%;
+  font-family: var(--inter);
+}
+
+.footer-textarea {
+  resize: none; /* Prevents user from breaking layout size manually */
+  line-height: 1.5;
+}
+
+/* Wide Dynamic Action Button */
+.footer-submit-btn {
+  background: var(--accent);
+  border: none;
+  border-radius: 8px;
+  padding: 0.8rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  color: #0a0907;
+  font-weight: 600;
+  font-size: 0.82rem;
+  transition: background-color 0.2s, transform 0.2s var(--ease);
+}
+
+.footer-submit-btn svg {
+  width: 14px;
+  height: 14px;
+  transition: transform 0.2s var(--ease);
+}
+
+.footer-submit-btn:hover {
+  background: var(--acl);
+}
+
+/* Subtle arrow movement on hover */
+.footer-submit-btn:hover svg {
+  transform: translateX(3px);
+}

@@ -135,3 +135,45 @@
   }
 
 })();
+
+
+// Live Email Form Handler
+const form = document.getElementById("contact-form");
+const status = document.getElementById("form-status");
+
+if (form) {
+  form.addEventListener("submit", async function(event) {
+    event.preventDefault(); // Stop page reload
+    
+    status.style.display = "block";
+    status.style.color = "var(--dim)";
+    status.innerText = "Sending message...";
+
+    const data = new FormData(event.target);
+    
+    try {
+      const response = await fetch(form.action, {
+        method: form.method,
+        body: data,
+        headers: { 'Accept': 'application/json' }
+      });
+      
+      if (response.ok) {
+        status.style.color = "var(--accent)"; // Saba Gold success accent
+        status.innerText = "Thanks! Your message has been sent.";
+        form.reset(); // Clear input field
+      } else {
+        const responseData = await response.json();
+        if (Object.hasOwn(responseData, 'errors')) {
+          status.innerText = responseData.errors.map(error => error.message).join(", ");
+        } else {
+          status.innerText = "Oops! There was a problem submitting your form.";
+        }
+        status.style.color = "#ff4a4a"; // Red error indicator
+      }
+    } catch (error) {
+      status.style.color = "#ff4a4a";
+      status.innerText = "Oops! Net network error occurred. Try again.";
+    }
+  });
+}
