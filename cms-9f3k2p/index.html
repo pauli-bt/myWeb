@@ -2,564 +2,272 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-  <title>Admin — PAULI_B</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>PAULI_B — Creative Studio</title>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;1,300&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet"/>
-  <style>
-    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-    html{font-size:16px}
-    body{font-family:'Inter',sans-serif;background:#070708;color:#f0ecf8;min-height:100vh;cursor:auto}
-    a{color:inherit;text-decoration:none}
-    img,video{max-width:100%;display:block}
-    button{font-family:inherit;cursor:pointer}
-    input{font-family:inherit}
-
-    /* ── LAYOUT ── */
-    .layout{display:flex;min-height:100vh}
-
-    /* ── SIDEBAR ── */
-    .sidebar{
-      width:240px;flex-shrink:0;
-      background:#0c0b10;border-right:1px solid rgba(168,85,247,.15);
-      position:fixed;top:0;left:0;bottom:0;
-      display:flex;flex-direction:column;overflow-y:auto;z-index:100;
-    }
-    .sb-logo{
-      padding:1.5rem;border-bottom:1px solid rgba(168,85,247,.12);
-      display:flex;align-items:center;gap:.7rem;
-    }
-    .sb-logo img{width:36px;height:36px;border-radius:50%;object-fit:cover;border:1.5px solid rgba(168,85,247,.4)}
-    .sb-logo-text{font-size:1.2rem;font-weight:700;letter-spacing:.04em}
-    .sb-logo-text em{font-style:normal;color:#a855f7}
-    .sb-section{padding:1.2rem 1.25rem .35rem;font-size:.58rem;font-weight:700;letter-spacing:.25em;text-transform:uppercase;color:rgba(240,236,248,.28)}
-    .sb-item{
-      display:flex;align-items:center;gap:.65rem;
-      padding:.65rem 1.25rem;font-size:.82rem;font-weight:500;
-      color:rgba(240,236,248,.5);border-left:2px solid transparent;
-      transition:all .2s;cursor:pointer;
-    }
-    .sb-item:hover{background:rgba(168,85,247,.07);color:#f0ecf8}
-    .sb-item.active{background:rgba(168,85,247,.12);color:#a855f7;border-left-color:#a855f7}
-    .sb-item svg{width:15px;height:15px;flex-shrink:0;stroke:currentColor;fill:none;stroke-width:1.5}
-    .sb-back{padding:1.25rem;margin-top:auto;border-top:1px solid rgba(168,85,247,.1)}
-    .sb-back a{display:flex;align-items:center;gap:.5rem;font-size:.78rem;color:rgba(240,236,248,.35);transition:color .2s}
-    .sb-back a:hover{color:#a855f7}
-
-    /* ── MAIN ── */
-    .main{margin-left:240px;flex:1;padding:2rem;min-width:0}
-    .topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:2rem;padding-bottom:1.5rem;border-bottom:1px solid rgba(168,85,247,.12);flex-wrap:wrap;gap:1rem}
-    .topbar h1{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:300}
-    .tab{display:none}.tab.active{display:block}
-
-    /* ── STAT CARDS ── */
-    .stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-bottom:2rem}
-    .stat-card{background:#0f0e14;border:1px solid rgba(168,85,247,.12);padding:1.5rem;border-radius:10px}
-    .stat-card .lbl{font-size:.62rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(240,236,248,.38);margin-bottom:.5rem}
-    .stat-card .val{font-size:2.8rem;font-weight:900;color:#a855f7;line-height:1;font-family:'Inter',sans-serif}
-    .stat-card .sub{font-size:.7rem;color:rgba(240,236,248,.3);margin-top:.3rem}
-
-    /* ── UPLOAD DROP ZONE ── */
-    .dropzone{
-      background:linear-gradient(135deg,#0f0e14,#111018);
-      border:2px dashed rgba(168,85,247,.25);border-radius:14px;
-      padding:3.5rem 2.5rem;text-align:center;
-      cursor:pointer;transition:all .3s;margin-bottom:1.5rem;
-      position:relative;overflow:hidden;
-    }
-    .dropzone::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(168,85,247,.07),transparent 65%);opacity:0;transition:opacity .3s}
-    .dropzone:hover,.dropzone.dg{border-color:#a855f7}
-    .dropzone:hover::before,.dropzone.dg::before{opacity:1}
-    .dropzone.dg{transform:scale(1.01);box-shadow:0 0 60px rgba(168,85,247,.12)}
-    .dropzone svg{width:50px;height:50px;color:#a855f7;margin:0 auto 1.25rem;opacity:.55;transition:opacity .3s,transform .3s}
-    .dropzone:hover svg,.dropzone.dg svg{opacity:.9;transform:translateY(-4px)}
-    .dropzone h3{font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:300;color:#f0ecf8;margin-bottom:.5rem}
-    .dropzone p{font-size:.82rem;color:rgba(240,236,248,.45);line-height:1.7;margin-bottom:1.25rem}
-    .dropzone .hint{font-size:.68rem;color:rgba(168,85,247,.6);margin-top:.75rem;font-family:'JetBrains Mono',monospace;line-height:1.8}
-    .file-label{
-      display:inline-flex;align-items:center;gap:.5rem;
-      padding:.7rem 1.8rem;border-radius:100px;
-      background:#a855f7;color:#fff;
-      font-size:.78rem;font-weight:600;cursor:pointer;
-      transition:all .25s;
-    }
-    .file-label:hover{background:#d8b4fe;transform:translateY(-1px)}
-
-    /* ── CAT TABS ── */
-    .cat-tabs{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1.5rem}
-    .cat-tab{
-      padding:.45rem 1.2rem;border-radius:100px;font-size:.72rem;font-weight:700;
-      letter-spacing:.08em;text-transform:uppercase;
-      background:#141220;border:1.5px solid rgba(168,85,247,.2);
-      color:rgba(240,236,248,.5);transition:all .2s;cursor:pointer;
-    }
-    .cat-tab.active{background:#a855f7;color:#fff;border-color:#a855f7}
-
-    /* ── FILE TABLE ── */
-    .f-table{background:#0c0b10;border:1px solid rgba(168,85,247,.12);border-radius:10px;overflow:hidden}
-    .f-head{display:grid;grid-template-columns:1fr 110px 90px 140px;padding:.6rem 1rem;background:rgba(168,85,247,.06);border-bottom:1px solid rgba(168,85,247,.1);font-size:.6rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(240,236,248,.3)}
-    .f-row{display:grid;grid-template-columns:1fr 110px 90px 140px;padding:.8rem 1rem;border-bottom:1px solid rgba(240,236,248,.04);align-items:center;transition:background .15s}
-    .f-row:last-child{border-bottom:none}
-    .f-row:hover{background:rgba(168,85,247,.05)}
-    .f-nm{display:flex;align-items:center;gap:.65rem;font-size:.82rem}
-    .f-nm svg{width:17px;height:17px;color:#a855f7;flex-shrink:0}
-    .f-cat{font-size:.62rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
-    .cg{color:#b83225}.cw{color:#39ff14}.cf{color:#e8a020}
-    .f-sz{font-size:.7rem;color:rgba(240,236,248,.38)}
-    .f-acts{display:flex;gap:.4rem}
-    .fb{padding:.22rem .55rem;font-size:.62rem;font-weight:600;background:transparent;border:1px solid rgba(240,236,248,.14);color:rgba(240,236,248,.48);border-radius:6px;transition:all .2s;cursor:pointer}
-    .fb:hover{border-color:#a855f7;color:#a855f7}
-    .fb.del:hover{border-color:#f87171;color:#f87171}
-
-    /* ── SEARCH / VIEW ── */
-    .srch{padding:.5rem .9rem;background:#141220;border:1.5px solid rgba(168,85,247,.15);color:#f0ecf8;font-size:.82rem;border-radius:8px;outline:none;max-width:260px;width:100%}
-    .srch:focus{border-color:rgba(168,85,247,.4)}
-    .vt{display:flex;background:#141220;border-radius:8px;overflow:hidden;border:1.5px solid rgba(168,85,247,.15)}
-    .vb{padding:.4rem .6rem;background:transparent;border:none;color:rgba(240,236,248,.38);transition:all .2s;cursor:pointer}
-    .vb.active{background:#1e1c28;color:#a855f7}
-
-    /* ── THUMB GRID ── */
-    .tg{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:2px;background:rgba(168,85,247,.1);border-radius:8px;overflow:hidden;margin-top:1rem}
-    .ti{aspect-ratio:1;background:#141220;overflow:hidden;position:relative;cursor:pointer}
-    .ti img,.ti video{width:100%;height:100%;object-fit:cover;transition:transform .4s}
-    .ti:hover img,.ti:hover video{transform:scale(1.06)}
-    .tl{position:absolute;bottom:0;left:0;right:0;padding:.4rem .5rem;background:linear-gradient(to top,rgba(0,0,0,.9),transparent);font-size:.58rem;color:#f0ecf8;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;opacity:0;transition:opacity .25s}
-    .ti:hover .tl{opacity:1}
-    .ti-ph{display:flex;align-items:center;justify-content:center;flex-direction:column;gap:.4rem;color:rgba(240,236,248,.22);font-size:.62rem;height:100%}
-    .ti-ph svg{width:22px;height:22px}
-
-    /* ── PROGRESS ── */
-    .prog{display:none;margin-bottom:1.5rem}
-    .prog.on{display:block}
-    .prog-lbl{font-size:.72rem;font-weight:500;color:rgba(240,236,248,.5);margin-bottom:.4rem;font-family:'JetBrains Mono',monospace}
-    .prog-track{background:#1e1c28;border-radius:100px;height:4px;overflow:hidden}
-    .prog-fill{height:100%;background:linear-gradient(to right,#a855f7,#ec4899);border-radius:100px;width:0;transition:width .2s}
-
-    /* ── QUEUE GRID ── */
-    .qgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:2px;margin-top:1rem}
-
-    /* ── EMPTY STATE ── */
-    .es{text-align:center;padding:4rem 2rem}
-    .es svg{width:44px;height:44px;margin:0 auto 1rem;opacity:.12;color:#a855f7}
-    .es h4{font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:300;color:rgba(240,236,248,.6);margin-bottom:.4rem}
-    .es p{font-size:.8rem;color:rgba(240,236,248,.3)}
-
-    /* ── CONTEXT MENU ── */
-    .ctx{display:none;position:fixed;background:#14121e;border:1px solid rgba(168,85,247,.25);border-radius:10px;z-index:5000;min-width:160px;box-shadow:0 12px 50px rgba(0,0,0,.7);overflow:hidden}
-    .ctx.on{display:block}
-    .ctx-i{padding:.6rem 1rem;font-size:.78rem;color:rgba(240,236,248,.6);cursor:pointer;display:flex;align-items:center;gap:.6rem;transition:background .15s}
-    .ctx-i:hover{background:rgba(168,85,247,.08);color:#f0ecf8}
-    .ctx-i.danger{color:#f87171}
-    .ctx-sep{height:1px;background:rgba(168,85,247,.1)}
-
-    /* ── PREVIEW MODAL ── */
-    .pv{display:none;position:fixed;inset:0;z-index:4000;background:rgba(0,0,0,.97);align-items:center;justify-content:center}
-    .pv.on{display:flex}
-    .pv-in{position:relative;max-width:92vw;max-height:92vh}
-    .pv-in img{max-width:92vw;max-height:88vh;object-fit:contain;border-radius:8px}
-    .pv-in video{max-width:92vw;max-height:88vh;border-radius:8px}
-    .pv-close{position:absolute;top:-2.8rem;right:0;background:none;border:none;color:rgba(255,255,255,.4);font-size:1.4rem;cursor:pointer;transition:color .2s}
-    .pv-close:hover{color:#a855f7}
-
-    /* ── TOASTS ── */
-    .toasts{position:fixed;bottom:2rem;right:2rem;z-index:6000;display:flex;flex-direction:column;gap:.5rem}
-    .toast{background:#14121e;border:1px solid rgba(168,85,247,.35);color:#f0ecf8;padding:.8rem 1.2rem;border-radius:10px;font-size:.82rem;animation:sIn .3s ease;min-width:260px}
-    .toast.err{border-color:rgba(248,113,113,.5)}
-    .toast.ok{border-color:rgba(74,222,128,.4)}
-    @keyframes sIn{from{opacity:0;transform:translateX(16px)}to{opacity:1;transform:translateX(0)}}
-
-    /* ── TAG UI ── */
-    .tag-row{display:flex;gap:.5rem;align-items:center;margin-bottom:.75rem}
-    .t-inp{padding:.38rem .75rem;background:#141220;border:1.5px solid rgba(168,85,247,.15);color:#f0ecf8;font-size:.75rem;border-radius:8px;outline:none;width:140px}
-    .t-inp:focus{border-color:rgba(168,85,247,.4)}
-    .tag-list{display:flex;gap:.4rem;flex-wrap:wrap;margin-bottom:1rem;min-height:24px}
-    .t-chip{padding:.2rem .65rem;background:rgba(168,85,247,.12);border:1px solid rgba(168,85,247,.28);font-size:.65rem;font-weight:600;color:#a855f7;border-radius:100px;display:inline-flex;align-items:center;gap:.3rem}
-    .t-chip span{opacity:.6;line-height:1;cursor:pointer}
-
-    /* ── SECTION LABEL ── */
-    .step-lbl{font-size:.65rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(240,236,248,.32);margin-bottom:.65rem}
-
-    /* ── RESPONSIVE ── */
-    @media(max-width:768px){
-      .sidebar{width:100%;position:relative;height:auto;border-right:none;border-bottom:1px solid rgba(168,85,247,.15)}
-      .main{margin-left:0;padding:1.25rem}
-      .layout{flex-direction:column}
-      .stat-grid{grid-template-columns:1fr 1fr}
-      .f-head,.f-row{grid-template-columns:1fr 90px 110px}
-      .f-sz{display:none}
-    }
-    @media(max-width:480px){
-      .stat-grid{grid-template-columns:1fr}
-      .f-head,.f-row{grid-template-columns:1fr 100px}
-      .f-cat,.f-sz{display:none}
-    }
-  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300;1,600&family=Space+Grotesk:wght@300;400;500;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="css/global.css"/>
+  <link rel="stylesheet" href="css/home.css"/>
 </head>
-<body>
-<div class="toasts" id="toasts"></div>
+<body class="page-home" data-cursor="default">
 
-<!-- Context menu -->
-<div class="ctx" id="ctx">
-  <div class="ctx-i" id="ctxPrev"><svg viewBox="0 0 24 24" width="13" height="13"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>Preview</div>
-  <div class="ctx-i" id="ctxRen"><svg viewBox="0 0 24 24" width="13" height="13"><path d="M11 4H4a2 2 0 0 0-2 2v14c0 1.1.9 2 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.12 2.12 0 0 1 3 3L12 15l-4 1 1-4z"/></svg>Rename</div>
-  <div class="ctx-i" id="ctxMov"><svg viewBox="0 0 24 24" width="13" height="13"><polyline points="5 9 2 12 5 15"/><polyline points="19 9 22 12 19 15"/><line x1="2" y1="12" x2="22" y2="12"/></svg>Move Category</div>
-  <div class="ctx-sep"></div>
-  <div class="ctx-i danger" id="ctxDel"><svg viewBox="0 0 24 24" width="13" height="13"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/></svg>Delete</div>
-</div>
-
-<!-- Preview modal -->
-<div class="pv" id="pv">
-  <div class="pv-in">
-    <button class="pv-close" id="pvClose">✕</button>
-    <img id="pvImg" src="" alt="" style="display:none"/>
-    <video id="pvVid" controls style="display:none"></video>
+  <!-- Custom cursor -->
+  <div class="cur" id="cur">
+    <div class="cur-dot"></div>
+    <div class="cur-ring"></div>
+    <div class="cur-label" id="curLabel"></div>
   </div>
-</div>
 
-<div class="layout">
-  <!-- SIDEBAR -->
-  <aside class="sidebar">
-    <div class="sb-logo">
-      <img src="../assets/logo.jpg" alt="PB"/>
-      <div class="sb-logo-text">PAULI<em>_B</em></div>
+  <!-- NAV -->
+  <nav class="nav" id="nav">
+    <a href="index.html" class="nav-logo">
+      <img src="assets/logo.jpg" alt="PB" class="nav-logo-img"/>
+      <span class="nav-logo-text">PAULI<em>_B</em></span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html" class="active">Home</a></li>
+      <li><a href="pages/graphics.html">Graphics</a></li>
+      <li><a href="pages/webdev.html">Web Dev</a></li>
+      <li><a href="pages/film.html">Film</a></li>
+    </ul>
+    <a href="pages/graphics.html" class="nav-cta">View Work</a>
+    <button class="nav-burger" id="burger" aria-label="Menu">
+      <span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- Mobile menu -->
+  <div class="mob-menu" id="mobMenu">
+    <button class="mob-close" id="mobClose">&#x2715;</button>
+    <nav class="mob-nav">
+      <a href="index.html">Home</a>
+      <a href="pages/graphics.html">Graphics</a>
+      <a href="pages/webdev.html">Web Dev</a>
+      <a href="pages/film.html">Film</a>
+    </nav>
+    <div class="mob-footer">
+      <img src="assets/logo.jpg" alt="PB" class="mob-logo"/>
+      <span>PAULI_B &copy; 2025</span>
     </div>
-    <div class="sb-section">Overview</div>
-    <div class="sb-item active" data-tab="dashboard">
-      <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>Dashboard
+  </div>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg">
+      <div class="hero-orb orb1"></div>
+      <div class="hero-orb orb2"></div>
+      <div class="hero-orb orb3"></div>
+      <div class="hero-grid"></div>
     </div>
-    <div class="sb-section">Files</div>
-    <div class="sb-item" data-tab="all">
-      <svg viewBox="0 0 24 24"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><polyline points="13 2 13 9 20 9"/></svg>All Files
+
+    <div class="hero-content">
+      <div class="hero-badge">
+        <span class="badge-dot"></span>
+        Creative Studio — Est. 2017
+      </div>
+      <h1 class="hero-title">
+        <span class="ht-line">
+          <span class="ht-word reveal-up">Visual</span>
+        </span>
+        <span class="ht-line">
+          <span class="ht-word reveal-up delay-1">Storytelling</span>
+        </span>
+        <span class="ht-line accent-line">
+          <span class="ht-word reveal-up delay-2">Redefined.</span>
+        </span>
+      </h1>
+      <p class="hero-sub reveal-fade delay-3">
+        Graphics Design · Web Development · Film &amp; Motion.<br/>
+        Three disciplines. One vision.
+      </p>
+      <div class="hero-btns reveal-fade delay-4">
+        <a href="pages/graphics.html" class="btn-primary">Explore Work</a>
+        <a href="pages/film.html" class="btn-outline">
+          <span class="btn-play">&#9654;</span> Watch Reel
+        </a>
+      </div>
     </div>
-    <div class="sb-item" data-tab="graphics">
-      <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>Graphics
+
+    <div class="hero-img-wrap">
+      <div class="hero-img-frame">
+        <img src="assets/logo.jpg" alt="Pauli_B" class="hero-img"/>
+        <div class="hero-img-overlay"></div>
+      </div>
+      <div class="hero-img-tag">Creative Director</div>
     </div>
-    <div class="sb-item" data-tab="webdev">
-      <svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>Web Dev
+
+    <div class="hero-scroll">
+      <div class="scroll-track"><div class="scroll-thumb"></div></div>
+      <span>Scroll</span>
     </div>
-    <div class="sb-item" data-tab="film">
-      <svg viewBox="0 0 24 24"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M8 6V4M16 6V4M8 18v2M16 18v2"/><circle cx="12" cy="12" r="3"/></svg>Film
+
+    <!-- Stats bar -->
+    <div class="hero-stats">
+      <div class="hstat">
+        <span class="hstat-num" data-count="120">0</span><span>+</span>
+        <p>Projects</p>
+      </div>
+      <div class="hstat-sep"></div>
+      <div class="hstat">
+        <span class="hstat-num" data-count="48">0</span><span>+</span>
+        <p>Clients</p>
+      </div>
+      <div class="hstat-sep"></div>
+      <div class="hstat">
+        <span class="hstat-num" data-count="7">0</span>
+        <p>Years</p>
+      </div>
+      <div class="hstat-sep"></div>
+      <div class="hstat play-trigger">
+        <span class="play-icon">&#9654;</span>
+        <p>Play Reel</p>
+      </div>
     </div>
-    <div class="sb-section">Actions</div>
-    <div class="sb-item" data-tab="upload">
-      <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>Upload Files
+  </section>
+
+  <!-- DISCIPLINES — 3 cards like the reference bottom bar -->
+  <section class="disciplines">
+    <div class="disc-header">
+      <p class="overline">What I Do</p>
+      <h2>Three Worlds.<br/><em>One Creator.</em></h2>
     </div>
-    <div class="sb-back">
-      <a href="../index.html">
-        <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
-        Back to Portfolio
+    <div class="disc-grid">
+
+      <a href="pages/graphics.html" class="disc-card" data-color="#c0392b" data-cursor="pencil">
+        <div class="disc-card-bg"></div>
+        <div class="disc-num">01</div>
+        <div class="disc-icon">
+          <!-- Pencil SVG -->
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M46 6L58 18L20 56H8V44L46 6Z"/>
+            <path d="M38 14L50 26"/>
+            <path d="M8 44L20 56"/>
+          </svg>
+        </div>
+        <h3>Graphics<br/>Design</h3>
+        <p>Brand identities, visual systems &amp; editorial art that communicate before words.</p>
+        <div class="disc-arrow">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </div>
+        <div class="disc-tag">Branding · Print · Digital</div>
       </a>
+
+      <a href="pages/webdev.html" class="disc-card featured" data-color="#1a1a2e" data-cursor="code">
+        <div class="disc-card-bg"></div>
+        <div class="disc-num">02</div>
+        <div class="disc-icon">
+          <!-- Monitor/Code SVG -->
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.5">
+            <rect x="4" y="8" width="56" height="38" rx="3"/>
+            <path d="M4 30h56"/>
+            <path d="M22 54h20M32 46v8"/>
+            <path d="M18 20l-6 6 6 6M46 20l6 6-6 6M28 14l8 20"/>
+          </svg>
+        </div>
+        <h3>Web<br/>Development</h3>
+        <p>Pixel-perfect interfaces &amp; full-stack architectures. Code that performs and endures.</p>
+        <div class="disc-arrow">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </div>
+        <div class="disc-tag">React · Node · TypeScript</div>
+      </a>
+
+      <a href="pages/film.html" class="disc-card" data-color="#0d0016" data-cursor="reel">
+        <div class="disc-card-bg"></div>
+        <div class="disc-num">03</div>
+        <div class="disc-icon">
+          <!-- Film reel SVG -->
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.5">
+            <circle cx="32" cy="32" r="26"/>
+            <circle cx="32" cy="32" r="8"/>
+            <circle cx="32" cy="12" r="4"/>
+            <circle cx="32" cy="52" r="4"/>
+            <circle cx="12" cy="32" r="4"/>
+            <circle cx="52" cy="32" r="4"/>
+            <circle cx="18" cy="18" r="4"/>
+            <circle cx="46" cy="46" r="4"/>
+            <circle cx="46" cy="18" r="4"/>
+            <circle cx="18" cy="46" r="4"/>
+          </svg>
+        </div>
+        <h3>Film &amp;<br/>Motion</h3>
+        <p>Cinematic stories told through light, motion &amp; rhythm. Productions that move people.</p>
+        <div class="disc-arrow">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </div>
+        <div class="disc-tag">Cinematography · Editing</div>
+      </a>
+
     </div>
-  </aside>
+  </section>
 
-  <main class="main">
-
-    <!-- DASHBOARD -->
-    <div class="tab active" id="tab-dashboard">
-      <div class="topbar">
-        <h1>Dashboard</h1>
-        <button onclick="switchTab('upload')" style="padding:.6rem 1.4rem;border-radius:100px;background:#a855f7;color:#fff;border:none;font-size:.78rem;font-weight:700;cursor:pointer">+ Upload Files</button>
-      </div>
-      <div class="stat-grid">
-        <div class="stat-card"><div class="lbl">Total Files</div><div class="val" id="sAll">—</div><div class="sub">across all categories</div></div>
-        <div class="stat-card"><div class="lbl">Graphics</div><div class="val" id="sG">—</div><div class="sub">images &amp; artwork</div></div>
-        <div class="stat-card"><div class="lbl">Web Dev</div><div class="val" id="sW">—</div><div class="sub">screenshots &amp; demos</div></div>
-        <div class="stat-card"><div class="lbl">Film</div><div class="val" id="sF">—</div><div class="sub">videos &amp; stills</div></div>
-      </div>
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;flex-wrap:wrap;gap:.5rem">
-        <h3 style="font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:300">Recent <em style="font-style:italic;color:#a855f7">Uploads</em></h3>
-        <button class="fb" onclick="switchTab('all')" style="padding:.3rem .8rem;font-size:.72rem">View All →</button>
-      </div>
-      <div class="f-table"><div class="f-head"><div>Name</div><div>Category</div><div>Size</div><div>Actions</div></div><div id="recentList"><div class="es" style="padding:2rem"><p style="font-size:.8rem">Loading…</p></div></div></div>
+  <!-- MARQUEE STRIP -->
+  <div class="marquee-wrap">
+    <div class="marquee-track">
+      <span>PAULI_B</span><span class="mdot">·</span>
+      <span>GRAPHICS DESIGN</span><span class="mdot">·</span>
+      <span>WEB DEVELOPMENT</span><span class="mdot">·</span>
+      <span>FILM &amp; MOTION</span><span class="mdot">·</span>
+      <span>CREATIVE STUDIO</span><span class="mdot">·</span>
+      <span>PAULI_B</span><span class="mdot">·</span>
+      <span>GRAPHICS DESIGN</span><span class="mdot">·</span>
+      <span>WEB DEVELOPMENT</span><span class="mdot">·</span>
+      <span>FILM &amp; MOTION</span><span class="mdot">·</span>
+      <span>CREATIVE STUDIO</span><span class="mdot">·</span>
     </div>
+  </div>
 
-    <!-- ALL FILES -->
-    <div class="tab" id="tab-all">
-      <div class="topbar">
-        <h1>All Files</h1>
-        <div style="display:flex;gap:.65rem;align-items:center;flex-wrap:wrap">
-          <input class="srch" id="srch-all" placeholder="Search…" oninput="renderTab('all')"/>
-          <div class="vt">
-            <button class="vb active" onclick="setView('all','list',this)" title="List"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/></svg></button>
-            <button class="vb" onclick="setView('all','grid',this)" title="Grid"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg></button>
+  <!-- ABOUT TEASER -->
+  <section class="about-teaser">
+    <div class="at-img">
+      <div class="at-img-frame">
+        <img src="assets/me.png" alt="Pauli_B"/>
+      </div>
+      <div class="at-badge-float">
+        <span>7</span>
+        <p>Years of<br/>Practice</p>
+      </div>
+    </div>
+    <div class="at-text">
+      <p class="overline">The Creator</p>
+      <h2>Where Art Meets<br/><em>Technology</em></h2>
+      <p class="at-body">A multidisciplinary creative at the crossroads of graphic design, web development, and cinematic filmmaking. Every project is an act of intention — shapes that communicate, code that performs, images that linger long after the screen goes dark.</p>
+      <div class="at-skills">
+        <span>Brand Identity</span>
+        <span>UI / UX Design</span>
+        <span>Full-Stack Dev</span>
+        <span>Cinematography</span>
+        <span>Motion Graphics</span>
+        <span>Art Direction</span>
+      </div>
+      <a href="pages/graphics.html" class="btn-primary" style="margin-top:2rem;display:inline-flex">See My Work</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <img src="assets/logo.jpg" alt="PB" class="footer-logo-img"/>
+          <div>
+            <div class="footer-logo-text">PAULI<em>_B</em></div>
+            <p>Crafting extraordinary experiences.</p>
           </div>
         </div>
+        <nav class="footer-nav">
+          <a href="pages/graphics.html">Graphics Design</a>
+          <a href="pages/webdev.html">Web Development</a>
+          <a href="pages/film.html">Film &amp; Motion</a>
+        </nav>
       </div>
-      <div id="view-all"></div>
+      <div class="footer-bottom">
+        <p>&copy; 2025 Pauli_B. All rights reserved.</p>
+        <p class="footer-secret">Made with intention.</p>
+      </div>
     </div>
+  </footer>
 
-    <!-- GRAPHICS -->
-    <div class="tab" id="tab-graphics">
-      <div class="topbar">
-        <h1>Graphics Design</h1>
-        <div style="display:flex;gap:.65rem;align-items:center">
-          <input class="srch" id="srch-graphics" placeholder="Search…" oninput="renderTab('graphics')"/>
-          <div class="vt">
-            <button class="vb active" onclick="setView('graphics','list',this)"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/></svg></button>
-            <button class="vb" onclick="setView('graphics','grid',this)"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg></button>
-          </div>
-          <button onclick="switchTab('upload');setCat('graphics')" style="padding:.45rem 1.1rem;border-radius:100px;background:#a855f7;color:#fff;border:none;font-size:.72rem;font-weight:700;cursor:pointer">+ Upload</button>
-        </div>
-      </div>
-      <div id="view-graphics"></div>
-    </div>
-
-    <!-- WEBDEV -->
-    <div class="tab" id="tab-webdev">
-      <div class="topbar">
-        <h1>Web Development</h1>
-        <div style="display:flex;gap:.65rem;align-items:center">
-          <input class="srch" id="srch-webdev" placeholder="Search…" oninput="renderTab('webdev')"/>
-          <div class="vt">
-            <button class="vb active" onclick="setView('webdev','list',this)"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/></svg></button>
-            <button class="vb" onclick="setView('webdev','grid',this)"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg></button>
-          </div>
-          <button onclick="switchTab('upload');setCat('webdev')" style="padding:.45rem 1.1rem;border-radius:100px;background:#a855f7;color:#fff;border:none;font-size:.72rem;font-weight:700;cursor:pointer">+ Upload</button>
-        </div>
-      </div>
-      <div id="view-webdev"></div>
-    </div>
-
-    <!-- FILM -->
-    <div class="tab" id="tab-film">
-      <div class="topbar">
-        <h1>Film &amp; Motion</h1>
-        <div style="display:flex;gap:.65rem;align-items:center">
-          <input class="srch" id="srch-film" placeholder="Search…" oninput="renderTab('film')"/>
-          <div class="vt">
-            <button class="vb active" onclick="setView('film','list',this)"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/></svg></button>
-            <button class="vb" onclick="setView('film','grid',this)"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg></button>
-          </div>
-          <button onclick="switchTab('upload');setCat('film')" style="padding:.45rem 1.1rem;border-radius:100px;background:#a855f7;color:#fff;border:none;font-size:.72rem;font-weight:700;cursor:pointer">+ Upload</button>
-        </div>
-      </div>
-      <div id="view-film"></div>
-    </div>
-
-    <!-- UPLOAD -->
-    <div class="tab" id="tab-upload">
-      <div class="topbar"><h1>Upload Files</h1></div>
-
-      <p class="step-lbl">Step 1 — Choose Category</p>
-      <div class="cat-tabs" id="catTabs">
-        <button class="cat-tab active" data-cat="graphics" onclick="setCat('graphics',this)">🎨 Graphics</button>
-        <button class="cat-tab" data-cat="webdev" onclick="setCat('webdev',this)">💻 Web Dev</button>
-        <button class="cat-tab" data-cat="film" onclick="setCat('film',this)">🎬 Film</button>
-      </div>
-
-      <p class="step-lbl">Step 2 — Add Tags <span style="opacity:.4;font-size:.6rem;text-transform:none;letter-spacing:0">(optional — press Enter to add)</span></p>
-      <div class="tag-row">
-        <input type="text" class="t-inp" id="tagInp" placeholder="e.g. branding, showreel" onkeydown="if(event.key==='Enter'){event.preventDefault();addTag()}"/>
-        <button class="fb" onclick="addTag()" style="padding:.38rem .8rem">+ Add</button>
-      </div>
-      <div class="tag-list" id="tagList"></div>
-
-      <p class="step-lbl">Step 3 — Drop Your Files <span style="opacity:.4;font-size:.6rem;text-transform:none;letter-spacing:0">(multiple files supported)</span></p>
-      <div class="dropzone" id="dropzone">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
-        <h3>Drop files here</h3>
-        <p>Images: JPG, PNG, GIF, SVG, WebP<br/>Video: MP4, MOV, WebM · PDF</p>
-        <label for="fileInp" class="file-label">Choose Files</label>
-        <input type="file" id="fileInp" multiple accept="image/*,video/*,.pdf,.svg,.webp" style="display:none" onchange="handleFiles(this.files)"/>
-        <p class="hint">
-          💡 Hold <strong>Ctrl</strong> (Windows) or <strong>Cmd</strong> (Mac) to select multiple files<br/>
-          🗂 Or drag &amp; drop several files at once<br/>
-          💾 Storage: IndexedDB — no size limits
-        </p>
-      </div>
-
-      <div class="prog" id="prog">
-        <div class="prog-lbl" id="progLbl">Ready…</div>
-        <div class="prog-track"><div class="prog-fill" id="progFill"></div></div>
-      </div>
-      <div class="qgrid" id="qGrid"></div>
-    </div>
-
-  </main>
-</div>
-
-<script src="../js/storage.js"></script>
-<script>
-'use strict';
-let curCat='graphics', ctxId=null, tags=[];
-let views={all:'list',graphics:'list',webdev:'list',film:'list'};
-
-// Sidebar
-document.querySelectorAll('.sb-item').forEach(el=>el.addEventListener('click',()=>switchTab(el.dataset.tab)));
-
-function switchTab(t){
-  document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
-  document.querySelectorAll('.sb-item').forEach(x=>x.classList.remove('active'));
-  document.getElementById('tab-'+t)?.classList.add('active');
-  document.querySelector('[data-tab="'+t+'"]')?.classList.add('active');
-  if(t==='dashboard') renderDash();
-  else if(t!=='upload') renderTab(t);
-}
-
-async function renderDash(){
-  const [all,g,w,f]=await Promise.all([PB.count(),PB.count('graphics'),PB.count('webdev'),PB.count('film')]);
-  document.getElementById('sAll').textContent=all;
-  document.getElementById('sG').textContent=g;
-  document.getElementById('sW').textContent=w;
-  document.getElementById('sF').textContent=f;
-  const rl=document.getElementById('recentList');
-  const files=await PB.getAll();
-  const recent=files.sort((a,b)=>new Date(b.date)-new Date(a.date)).slice(0,12);
-  if(!recent.length){rl.innerHTML='<div class="es"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" width="44" height="44"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/></svg><h4>No files yet</h4><p>Head to Upload to add your first files.</p></div>';return;}
-  rl.innerHTML=recent.map(frow).join('');
-}
-
-async function renderTab(cat){
-  const el=document.getElementById('view-'+cat);
-  if(!el)return;
-  const s=(document.getElementById('srch-'+cat)?.value||'').toLowerCase();
-  let list=await PB.getAll(cat==='all'?null:cat);
-  list=list.sort((a,b)=>new Date(b.date)-new Date(a.date));
-  if(s)list=list.filter(f=>f.name.toLowerCase().includes(s)||(f.tags||[]).some(t=>t.includes(s)));
-  if(!list.length){el.innerHTML='<div class="es"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" width="44" height="44"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/></svg><h4>No files here</h4><p>Upload files via the Upload tab.</p></div>';return;}
-  if(views[cat]==='grid'){el.innerHTML='<div class="tg">'+list.map(thumb).join('')+'</div>';return;}
-  el.innerHTML='<div class="f-table"><div class="f-head"><div>Name</div><div>Category</div><div>Size</div><div>Actions</div></div>'+list.map(frow).join('')+'</div>';
-}
-
-function frow(f){
-  const ic=f.type?.startsWith('video')?'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="17" height="17"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="3"/></svg>':f.type?.startsWith('image')?'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="17" height="17"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="17" height="17"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/></svg>';
-  const cc=f.cat==='graphics'?'cg':f.cat==='webdev'?'cw':'cf';
-  const nm=f.name.length>38?f.name.slice(0,35)+'…':f.name;
-  return`<div class="f-row" oncontextmenu="openCtx(event,'${f.id}')"><div class="f-nm">${ic}<span title="${f.name}">${nm}</span></div><div class="f-cat"><span class="${cc}">${f.cat}</span></div><div class="f-sz">${fmtSz(f.size)}</div><div class="f-acts"><button class="fb" onclick="previewFile('${f.id}')">View</button><button class="fb del" onclick="delFile('${f.id}')">Del</button></div></div>`;
-}
-
-function thumb(f){
-  const isI=f.type?.startsWith('image'),isV=f.type?.startsWith('video');
-  const inner=isI?`<img src="${f.data}" alt="${f.name}" loading="lazy"/>`:isV?`<video src="${f.data}" muted preload="metadata"></video><div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:32px;height:32px;background:#a855f7;border-radius:50%;display:flex;align-items:center;justify-content:center;pointer-events:none"><svg viewBox="0 0 24 24" width="11" height="11" fill="#fff"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>`:'<div class="ti-ph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" width="22" height="22"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/></svg></div>';
-  return`<div class="ti" onclick="previewFile('${f.id}')" oncontextmenu="openCtx(event,'${f.id}')">${inner}<div class="tl">${f.name}</div></div>`;
-}
-
-function setView(cat,mode,btn){
-  views[cat]=mode;
-  btn.closest('.vt').querySelectorAll('.vb').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-  renderTab(cat);
-}
-
-function setCat(cat,btn){
-  curCat=cat;
-  if(btn){document.querySelectorAll('.cat-tab').forEach(b=>b.classList.remove('active'));btn.classList.add('active');}
-  else document.querySelectorAll('.cat-tab').forEach(b=>b.classList.toggle('active',b.dataset.cat===cat));
-}
-
-// Tags
-function addTag(){const i=document.getElementById('tagInp'),v=i.value.trim().toLowerCase();if(v&&!tags.includes(v)){tags.push(v);renderTags();}i.value='';i.focus();}
-function renderTags(){document.getElementById('tagList').innerHTML=tags.map(t=>`<span class="t-chip">${t}<span onclick="rmTag('${t}')" title="Remove">✕</span></span>`).join('');}
-function rmTag(t){tags=tags.filter(x=>x!==t);renderTags();}
-
-// Drag & drop
-const dz=document.getElementById('dropzone');
-dz.addEventListener('dragenter',e=>{e.preventDefault();dz.classList.add('dg');});
-dz.addEventListener('dragover', e=>{e.preventDefault();dz.classList.add('dg');});
-dz.addEventListener('dragleave',e=>{if(!dz.contains(e.relatedTarget))dz.classList.remove('dg');});
-dz.addEventListener('drop',e=>{e.preventDefault();dz.classList.remove('dg');if(e.dataTransfer.files.length)handleFiles(e.dataTransfer.files);});
-
-// Upload — parallel, IndexedDB
-async function handleFiles(fileList){
-  if(!fileList||!fileList.length)return;
-  const q=document.getElementById('qGrid');
-  const pw=document.getElementById('prog');
-  const fill=document.getElementById('progFill');
-  const lbl=document.getElementById('progLbl');
-  q.innerHTML='';pw.classList.add('on');fill.style.width='0%';
-  const total=fileList.length;
-  let done=0;
-  toast(`Reading ${total} file${total>1?'s':''}…`);
-
-  function updateProg(){
-    const pct=Math.round(done/total*100);
-    fill.style.width=pct+'%';
-    lbl.textContent=done<total?`Uploading ${done} of ${total}…`:`✓ Done! ${total} file${total>1?'s':''} saved to "${curCat}"`;
-    if(done===total){
-      toast(`${total} file${total>1?'s':''} uploaded to ${curCat}`,'ok');
-      renderDash();['all','graphics','webdev','film'].forEach(renderTab);
-      tags=[];renderTags();
-      document.getElementById('fileInp').value='';
-      setTimeout(()=>{pw.classList.remove('on');fill.style.width='0';},3500);
-    }
-  }
-
-  await Promise.all(Array.from(fileList).map((file,i)=>new Promise(resolve=>{
-    const div=document.createElement('div');
-    div.className='ti ti-ph';div.style.opacity='.35';
-    div.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" width="22" height="22"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/></svg>';
-    q.appendChild(div);
-    const r=new FileReader();
-    r.onerror=()=>{toast('Failed: '+file.name,'err');done++;updateProg();resolve();};
-    r.onload=async e=>{
-      const data=e.target.result;
-      const id='f_'+Date.now()+'_'+i+'_'+Math.random().toString(36).slice(2,7);
-      try{await PB.put({id,name:file.name,cat:curCat,type:file.type,data,size:file.size,tags:[...tags],date:new Date().toISOString()});}
-      catch(err){toast('Save failed: '+file.name,'err');}
-      div.style.opacity='1';
-      if(file.type.startsWith('image')){div.className='ti';div.innerHTML=`<img src="${data}" loading="lazy"/><div class="tl">${file.name}</div>`;}
-      else if(file.type.startsWith('video')){div.className='ti';div.innerHTML=`<video src="${data}" muted preload="metadata"></video><div class="tl">${file.name}</div>`;}
-      else{div.innerHTML=`<div class="ti-ph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" width="22" height="22"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/></svg><span style="font-size:.58rem;padding:0 .3rem;text-align:center;word-break:break-all">${file.name.slice(0,16)}</span></div>`;}
-      done++;updateProg();resolve();
-    };
-    r.readAsDataURL(file);
-  })));
-}
-
-// Delete
-async function delFile(id){
-  const f=await PB.get(id);
-  if(!confirm(`Delete "${f?.name||'this file'}"?`))return;
-  await PB.delete(id);toast('File deleted');renderDash();['all','graphics','webdev','film'].forEach(renderTab);
-}
-
-// Preview
-async function previewFile(id){
-  const f=await PB.get(id);if(!f)return;
-  const m=document.getElementById('pv'),img=document.getElementById('pvImg'),vid=document.getElementById('pvVid');
-  img.style.display='none';vid.style.display='none';
-  if(f.type?.startsWith('image')){img.src=f.data;img.style.display='block';}
-  else if(f.type?.startsWith('video')){vid.src=f.data;vid.style.display='block';}
-  m.classList.add('on');
-}
-document.getElementById('pvClose').onclick=()=>{document.getElementById('pv').classList.remove('on');document.getElementById('pvVid').pause();};
-document.getElementById('pv').onclick=e=>{if(e.target===document.getElementById('pv')){document.getElementById('pv').classList.remove('on');document.getElementById('pvVid').pause();}};
-
-// Context menu
-function openCtx(e,id){
-  e.preventDefault();ctxId=id;
-  const m=document.getElementById('ctx');
-  m.style.left=Math.min(e.clientX,window.innerWidth-180)+'px';
-  m.style.top=Math.min(e.clientY,window.innerHeight-170)+'px';
-  m.classList.add('on');
-}
-document.addEventListener('click',()=>document.getElementById('ctx').classList.remove('on'));
-document.getElementById('ctxPrev').onclick=()=>{if(ctxId)previewFile(ctxId);};
-document.getElementById('ctxDel').onclick=()=>{if(ctxId)delFile(ctxId);};
-document.getElementById('ctxRen').onclick=async()=>{
-  if(!ctxId)return;
-  const f=await PB.get(ctxId);
-  const n=prompt('Rename:',f?.name||'');
-  if(n?.trim()){f.name=n.trim();await PB.put(f);['all','graphics','webdev','film'].forEach(renderTab);renderDash();toast('Renamed');}
-};
-document.getElementById('ctxMov').onclick=async()=>{
-  if(!ctxId)return;
-  const f=await PB.get(ctxId);
-  const opts=['graphics','webdev','film'].filter(c=>c!==f?.cat).join(' / ');
-  const n=prompt(`Move to (${opts}):`)?.toLowerCase().trim();
-  if(n&&['graphics','webdev','film'].includes(n)){f.cat=n;await PB.put(f);['all','graphics','webdev','film'].forEach(renderTab);renderDash();toast('Moved to '+n);}
-};
-
-// Utils
-function fmtSz(b){if(!b)return'—';if(b<1024)return b+'B';if(b<1048576)return(b/1024).toFixed(1)+'KB';return(b/1048576).toFixed(1)+'MB';}
-function toast(msg,type=''){
-  const c=document.getElementById('toasts'),t=document.createElement('div');
-  t.className='toast '+(type||'');t.textContent=msg;c.appendChild(t);
-  setTimeout(()=>t.remove(),4500);
-}
-
-// Init
-renderDash();['all','graphics','webdev','film'].forEach(renderTab);
-</script>
+  <script src="js/global.js"></script>
 </body>
 </html>
