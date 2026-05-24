@@ -47,9 +47,9 @@
   position: absolute; border-radius: 50%;
   filter: blur(80px); opacity: .35;
 }
-.orb1 { width: 600px; height: 600px; background: radial-gradient(circle, rgba(168,85,247,.6), transparent); top: -15%; right: -10%; animation: drift 10s ease-in-out infinite; }
-.orb2 { width: 400px; height: 400px; background: radial-gradient(circle, rgba(236,72,153,.5), transparent); bottom: 10%; left: -5%; animation: drift 13s ease-in-out infinite reverse; }
-.orb3 { width: 250px; height: 250px; background: radial-gradient(circle, rgba(99,102,241,.4), transparent); top: 50%; left: 40%; animation: drift 8s ease-in-out infinite 2s; }
+.orb1 { width: 600px; height: 600px; background: radial-gradient(circle, rgba(247, 223, 85, 0.6), transparent); top: -15%; right: -10%; animation: drift 10s ease-in-out infinite; }
+.orb2 { width: 400px; height: 400px; background: radial-gradient(circle, rgba(236, 195, 72, 0.5), transparent); bottom: 10%; left: -5%; animation: drift 13s ease-in-out infinite reverse; }
+.orb3 { width: 250px; height: 250px; background: radial-gradient(circle, rgba(241, 220, 99, 0.4), transparent); top: 50%; left: 40%; animation: drift 8s ease-in-out infinite 2s; }
 @keyframes drift { 0%,100%{transform:translateY(0) scale(1)} 50%{transform:translateY(-30px) scale(1.05)} }
 
 .hero-grid {
