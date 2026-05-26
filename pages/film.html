@@ -5,30 +5,112 @@
   <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
   <title>Film & Motion — PAULI_B</title>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300;1,600&family=Space+Grotesk:wght@300;400;500;700&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Space+Grotesk:wght@300;400;500;700&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="../css/global.css"/>
   <link rel="stylesheet" href="../css/pages.css"/>
   <style>
-    .cur-dot { background: #e8a020 !important; box-shadow: 0 0 14px #e8a020 !important; }
-    .cur-ring { border-color: rgba(232,160,32,.5) !important; }
-    .overline { color: var(--accent); }
-    .overline::before { background: var(--accent); }
-    .footer { background: var(--bg2); border-color: var(--acb); }
-    .footer-logo-text em { color: var(--accent); }
-    .btn-primary { background: var(--accent); color: #000; }
-    .btn-primary:hover { background: var(--acl); }
-    .btn-outline { border-color: var(--acb); color: var(--text); }
-    .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
-    .filt { border-color: var(--acb); color: var(--dim); }
-    .filt.active, .filt:hover { background: var(--accent); color: #000; border-color: var(--accent); }
-    .v-play { background: var(--accent); }
-    .v-play svg { fill: #000; }
-    .v-tag { color: var(--accent); }
-    .marquee-wrap { background: var(--bg2); border-color: var(--acb); }
-    .marquee-track .mdot { color: var(--accent); }
-    /* Spinning reel cursor icon */
-    .reel-icon { position: absolute; top: -18px; left: -18px; font-size: 24px; pointer-events: none; animation: spinReel 2s linear infinite; filter: drop-shadow(0 0 6px rgba(232,160,32,.6)); }
-    @keyframes spinReel { to { transform: rotate(360deg); } }
+    .page-film {
+      --bg:#060410; --bg2:#0c0820; --bg3:#140c2e;
+      --text:#f0eaff; --dim:rgba(240,234,255,.48); --faint:rgba(240,234,255,.06);
+      --accent:#e8a020; --acl:#f5c85a; --acd:rgba(232,160,32,.14); --acb:rgba(232,160,32,.22);
+      background:var(--bg); color:var(--text);
+    }
+    /* Film grain */
+    body::before { content:''; position:fixed; inset:0; z-index:0; pointer-events:none; opacity:.45;
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='250' height='250'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='250' height='250' filter='url(%23g)' opacity='.05'/%3E%3C/svg%3E"); }
+    /* Vignette */
+    body::after { content:''; position:fixed; inset:0; z-index:0; pointer-events:none; background:radial-gradient(ellipse at center,transparent 40%,rgba(0,0,0,.72) 100%); }
+
+    .cur-dot { background:#e8a020 !important; box-shadow:0 0 14px rgba(232,160,32,.7) !important; }
+    .cur-ring { border-color:rgba(232,160,32,.5) !important; }
+    .overline { color:var(--accent); } .overline::before { background:var(--accent); }
+    .nav-logo-text em { color:var(--accent); }
+    .nav-links a.active { color:var(--accent); }
+    .nav-links a::after { background:var(--accent); }
+    .nav-cta { background:var(--accent); color:#000; }
+    .nav-cta:hover { background:var(--acl); }
+    .nav.scrolled { background:rgba(6,4,16,.93); border-bottom:1px solid var(--acb); }
+    .btn-primary { background:var(--accent); color:#000; }
+    .btn-primary:hover { background:var(--acl); box-shadow:0 12px 40px var(--acd); }
+    .btn-outline { border-color:var(--acb); color:var(--text); }
+    .btn-outline:hover { border-color:var(--accent); color:var(--accent); }
+    .filt { border-color:var(--acb); color:var(--dim); }
+    .filt.active,.filt:hover { background:var(--accent); color:#000; border-color:var(--accent); }
+    .v-play { background:var(--accent); } .v-play svg { fill:#000; }
+    .v-tag { color:var(--accent); }
+    .v-card { background:var(--bg2); border-color:var(--acb); }
+    .v-card:hover { border-color:var(--accent); }
+    .marquee-wrap { background:var(--bg2); border-color:var(--acb); position:relative; z-index:2; }
+    .marquee-track .mdot { color:var(--accent); }
+    .footer { background:var(--bg2); border-color:var(--acb); position:relative; z-index:2; }
+    .footer-logo-text em { color:var(--accent); }
+    .footer-nav a:hover { color:var(--accent); }
+    .footer-email-box h4 { color:var(--text); }
+    .footer-form .form-group { background:var(--bg3); border-color:var(--acb); }
+    .footer-form .form-group:focus-within { border-color:var(--accent); }
+    .footer-input,.footer-textarea { color:var(--text); }
+    .footer-input::placeholder,.footer-textarea::placeholder { color:rgba(232,160,32,.2); }
+    .footer-submit-btn { background:var(--accent); color:#000; }
+    .footer-submit-btn:hover { background:var(--acl); }
+    .social-icon { background:var(--bg3); border-color:var(--acb); color:var(--dim); }
+    .social-icon:hover { background:var(--accent); border-color:var(--accent); color:#000; box-shadow:0 8px 20px var(--acd); }
+    .footer-bottom p { color:rgba(240,234,255,.2); }
+
+    /* Showreel */
+    .f-reel { width:100%; aspect-ratio:21/9; background:#000; position:relative; overflow:hidden; display:flex; align-items:center; justify-content:center; border-bottom:1px solid var(--acb); }
+    @media(max-width:768px) { .f-reel { aspect-ratio:16/9; } }
+    .f-reel video { width:100%; height:100%; object-fit:cover; }
+    .f-reel-ph { text-align:center; position:relative; z-index:1; padding:2rem; }
+    .f-reel-ph svg { width:72px; height:72px; margin:0 auto 1.5rem; opacity:.18; }
+    .f-reel-ph h3 { font-family:var(--serif); font-size:clamp(1.8rem,4vw,3rem); font-weight:300; color:var(--text); margin-bottom:.5rem; }
+    .f-reel-ph p { font-size:.85rem; color:var(--dim); }
+    .f-reel-ph em { color:var(--accent); font-style:italic; }
+
+    /* Film strip */
+    .f-strip-wrap { background:#000; border-bottom:1px solid var(--acb); overflow:hidden; position:relative; z-index:2; }
+    .f-strip { display:flex; gap:3px; overflow-x:auto; padding:2rem clamp(1.25rem,4vw,4rem); scrollbar-width:none; cursor:grab; }
+    .f-strip:active { cursor:grabbing; }
+    .f-strip::-webkit-scrollbar { display:none; }
+    .f-frame { flex-shrink:0; width:clamp(180px,20vw,240px); height:clamp(118px,13vw,158px); background:var(--bg2); position:relative; overflow:hidden; }
+    .f-frame::before,.f-frame::after { content:''; position:absolute; top:0; bottom:0; width:18px; background:repeating-linear-gradient(to bottom,#040404 0,#040404 10px,transparent 10px,transparent 17px); z-index:2; }
+    .f-frame::before { left:0; } .f-frame::after { right:0; }
+    .f-frame img { width:calc(100% - 36px); height:100%; object-fit:cover; margin:0 18px; }
+    .f-frame-ph { width:100%; height:100%; display:flex; align-items:center; justify-content:center; color:var(--dim); font-size:.65rem; opacity:.35; }
+
+    /* Hero */
+    .f-hero { min-height:48vh; display:flex; align-items:flex-end; padding:4rem clamp(1.25rem,4vw,4rem) 5rem; position:relative; overflow:hidden; }
+    .f-hero-bg { position:absolute; inset:0; background:radial-gradient(ellipse 70% 80% at 50% 40%,rgba(70,20,100,.55),transparent 70%),var(--bg); }
+    .f-hero-content { position:relative; z-index:2; }
+    .f-hero h1 { font-family:var(--serif); font-size:clamp(3.5rem,9vw,8rem); font-weight:300; line-height:.88; letter-spacing:-.02em; margin-bottom:1.5rem; }
+    .f-hero h1 em { font-style:italic; color:var(--accent); }
+    .f-hero p { font-size:clamp(.85rem,1.4vw,1rem); color:var(--dim); max-width:480px; line-height:1.85; }
+    .f-hero-btns { margin-top:2.5rem; display:flex; gap:1rem; flex-wrap:wrap; }
+
+    /* Genre filter */
+    .f-genres { padding:1.5rem clamp(1.25rem,4vw,4rem); display:flex; gap:.6rem; flex-wrap:wrap; border-bottom:1px solid var(--acb); background:var(--bg2); position:relative; z-index:2; }
+
+    /* Video section */
+    .f-videos { padding:5rem clamp(1.25rem,4vw,4rem); position:relative; z-index:2; }
+
+    /* Awards */
+    .f-awards { padding:5rem clamp(1.25rem,4vw,4rem); background:var(--bg2); border-top:1px solid var(--acb); position:relative; z-index:2; }
+    .f-awards-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:1.5rem; margin-top:2.5rem; }
+    .f-award-card { background:var(--bg); border:1px solid var(--acb); padding:2rem; border-radius:10px; transition:border-color .3s,transform .3s; position:relative; overflow:hidden; }
+    .f-award-card::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(to right,var(--accent),transparent); transform:scaleX(0); transform-origin:left; transition:transform .4s; }
+    .f-award-card:hover { border-color:var(--accent); transform:translateY(-4px); }
+    .f-award-card:hover::before { transform:scaleX(1); }
+    .f-award-year { font-family:'Inter',sans-serif; font-size:3.5rem; font-weight:900; color:transparent; -webkit-text-stroke:1.5px rgba(232,160,32,.2); line-height:1; margin-bottom:.4rem; }
+    .f-award-title { font-family:var(--serif); font-size:1.35rem; font-weight:300; margin:.25rem 0; }
+    .f-award-evt { font-size:.68rem; font-weight:700; color:var(--accent); letter-spacing:.12em; text-transform:uppercase; }
+
+    /* CTA band */
+    .f-cta { padding:5rem clamp(1.25rem,4vw,4rem); position:relative; z-index:2; display:flex; align-items:center; justify-content:space-between; gap:2rem; flex-wrap:wrap; border-top:1px solid var(--acb); }
+    .f-cta h3 { font-family:var(--serif); font-size:clamp(1.8rem,3vw,2.8rem); font-weight:300; }
+    .f-cta h3 em { font-style:italic; color:var(--accent); }
+
+    /* Spinning reel on cursor */
+    .reel-icon { position:absolute; top:-20px; left:-20px; font-size:26px; pointer-events:none; animation:spinReel 2s linear infinite; filter:drop-shadow(0 0 7px rgba(232,160,32,.6)); }
+    @keyframes spinReel { to { transform:rotate(360deg); } }
   </style>
 </head>
 <body data-cursor="reel">
@@ -36,30 +118,20 @@
   <div class="cur" id="cur">
     <div class="cur-dot"></div>
     <div class="cur-ring"></div>
-    <!-- Spinning reel icon -->
     <div class="reel-icon">🎬</div>
   </div>
 
   <nav class="nav" id="nav">
-    <a href="../index.html" class="nav-logo">
-      <img src="../assets/logo.jpg" alt="PB" class="nav-logo-img"/>
-      <span class="nav-logo-text">PAULI<em>_B</em></span>
-    </a>
+    <a href="../index.html" class="nav-logo"><img src="../assets/logo.jpg" alt="PB" class="nav-logo-img"/><span class="nav-logo-text">PAULI<em>_B</em></span></a>
     <ul class="nav-links">
-      <li><a href="../index.html">Home</a></li>
-      <li><a href="graphics.html">Graphics</a></li>
-      <li><a href="webdev.html">Web Dev</a></li>
-      <li><a href="film.html" class="active">Film</a></li>
+      <li><a href="../index.html">Home</a></li><li><a href="graphics.html">Graphics</a></li><li><a href="webdev.html">Web Dev</a></li><li><a href="film.html" class="active">Film</a></li>
     </ul>
-    <a href="../index.html" class="nav-cta">Home ↑</a>
+    <a href="#contact" class="nav-cta">Collaborate</a>
     <button class="nav-burger" id="burger"><span></span><span></span></button>
   </nav>
-
   <div class="mob-menu" id="mobMenu">
     <button class="mob-close" id="mobClose">✕</button>
-    <nav class="mob-nav">
-      <a href="../index.html">Home</a><a href="graphics.html">Graphics</a><a href="webdev.html">Web Dev</a><a href="film.html">Film</a>
-    </nav>
+    <nav class="mob-nav"><a href="../index.html">Home</a><a href="graphics.html">Graphics</a><a href="webdev.html">Web Dev</a><a href="film.html">Film</a><a href="#contact">Collaborate</a></nav>
     <div class="mob-footer"><img src="../assets/logo.jpg" alt="PB" class="mob-logo"/><span>PAULI_B © 2025</span></div>
   </div>
 
@@ -75,11 +147,11 @@
         <circle cx="46" cy="18" r="4"/><circle cx="18" cy="46" r="4"/>
       </svg>
       <h3>Upload Your Showreel</h3>
-      <p>Tag a video as <em style="color:var(--accent)">showreel</em> in the Admin Panel → Film</p>
+      <p>Tag a video as <em>showreel</em> in the Admin Panel → Film</p>
     </div>
   </div>
 
-  <!-- Film strip -->
+  <!-- FILM STRIP -->
   <div class="f-strip-wrap">
     <div class="f-strip" id="fStrip">
       <div class="f-frame"><div class="f-frame-ph">▶</div></div>
@@ -93,22 +165,22 @@
     </div>
   </div>
 
-  <!-- Hero -->
+  <!-- HERO TEXT -->
   <section class="f-hero">
     <div class="f-hero-bg"></div>
     <div class="f-hero-content reveal-up">
       <p class="overline">Discipline Three — Noir &amp; Amber</p>
       <h1>Film &amp;<br/><em>Motion</em></h1>
       <p>Stories told through light, shadow and rhythm. Cinematic productions that move people — literally and emotionally.</p>
-      <div style="margin-top:2.5rem;display:flex;gap:1rem;flex-wrap:wrap">
+      <div class="f-hero-btns">
         <a href="#productions" class="btn-primary">View Productions</a>
         <a href="#awards" class="btn-outline">Awards</a>
       </div>
     </div>
   </section>
 
-  <!-- Genre filter -->
-  <div class="f-genres" style="position:relative;z-index:2">
+  <!-- GENRE FILTER -->
+  <div class="f-genres">
     <button class="filt active" data-filter="all">All</button>
     <button class="filt" data-filter="documentary">Documentary</button>
     <button class="filt" data-filter="commercial">Commercial</button>
@@ -117,42 +189,28 @@
     <button class="filt" data-filter="motion">Motion Graphics</button>
   </div>
 
-  <!-- Video grid -->
-  <section class="video-section section" id="productions" style="position:relative;z-index:2">
-    <div class="section-header">
-      <p class="overline">Film Portfolio</p>
-      <h2 style="font-family:var(--serif);font-size:clamp(2rem,4vw,3rem);font-weight:300;margin-bottom:2rem">Selected <em style="font-style:italic;color:var(--accent)">Productions</em></h2>
-    </div>
+  <!-- VIDEO GRID -->
+  <section class="f-videos" id="productions">
+    <p class="overline">Film Portfolio</p>
+    <h2 style="font-family:var(--serif);font-size:clamp(2rem,4vw,3rem);font-weight:300;margin-bottom:2rem">Selected <em style="font-style:italic;color:var(--accent)">Productions</em></h2>
     <div class="video-grid" id="fVideos">
-      <div class="v-card">
-        <div class="v-thumb" style="padding:2rem;flex-direction:column;gap:.5rem">
-          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" style="margin:0 auto;opacity:.25"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-          <p style="font-size:.72rem;color:var(--dim);text-align:center">Upload video in Admin → Film</p>
-        </div>
-        <div class="v-info"><h4 style="font-family:var(--serif)">Your Film Project</h4><p>Upload via Admin Panel</p><div class="v-meta"><span class="v-tag">Film</span></div></div>
-      </div>
-      <div class="v-card">
-        <div class="v-thumb" style="padding:2rem;flex-direction:column;gap:.5rem">
-          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" style="margin:0 auto;opacity:.25"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-          <p style="font-size:.72rem;color:var(--dim);text-align:center">Upload video in Admin → Film</p>
-        </div>
-        <div class="v-info"><h4 style="font-family:var(--serif)">Your Film Project</h4><p>Upload via Admin Panel</p><div class="v-meta"><span class="v-tag">Film</span></div></div>
-      </div>
+      <div class="v-card"><div class="v-thumb" style="padding:2.5rem;flex-direction:column;gap:.5rem"><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" style="margin:0 auto;opacity:.22"><polygon points="5 3 19 12 5 21 5 3"/></svg><p style="font-size:.72rem;color:var(--dim);text-align:center">Upload video in Admin → Film</p></div><div class="v-info"><h4 style="font-family:var(--serif)">Your Film Project</h4><p>Upload via Admin Panel</p><div class="v-meta"><span class="v-tag">Film</span></div></div></div>
+      <div class="v-card"><div class="v-thumb" style="padding:2.5rem;flex-direction:column;gap:.5rem"><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" style="margin:0 auto;opacity:.22"><polygon points="5 3 19 12 5 21 5 3"/></svg><p style="font-size:.72rem;color:var(--dim);text-align:center">Upload video in Admin → Film</p></div><div class="v-info"><h4 style="font-family:var(--serif)">Your Film Project</h4><p>Upload via Admin Panel</p><div class="v-meta"><span class="v-tag">Film</span></div></div></div>
     </div>
   </section>
 
-  <!-- Marquee -->
-  <div class="marquee-wrap" style="position:relative;z-index:2">
+  <!-- MARQUEE -->
+  <div class="marquee-wrap">
     <div class="marquee-track">
       <span>CINEMATOGRAPHY</span><span class="mdot">·</span><span>DOCUMENTARY</span><span class="mdot">·</span><span>COMMERCIAL</span><span class="mdot">·</span><span>MUSIC VIDEO</span><span class="mdot">·</span><span>MOTION GRAPHICS</span><span class="mdot">·</span><span>COLOR GRADING</span><span class="mdot">·</span><span>CINEMATOGRAPHY</span><span class="mdot">·</span><span>DOCUMENTARY</span><span class="mdot">·</span><span>COMMERCIAL</span><span class="mdot">·</span><span>MUSIC VIDEO</span><span class="mdot">·</span><span>MOTION GRAPHICS</span><span class="mdot">·</span><span>COLOR GRADING</span><span class="mdot">·</span>
     </div>
   </div>
 
-  <!-- Awards -->
-  <section class="section" id="awards" style="background:var(--bg2);border-top:1px solid var(--acb);position:relative;z-index:2">
+  <!-- AWARDS -->
+  <section class="f-awards" id="awards">
     <p class="overline">Recognition</p>
-    <h2 style="font-family:var(--serif);font-size:clamp(2rem,4vw,3rem);font-weight:300;margin-bottom:2.5rem">Awards &amp; <em style="font-style:italic;color:var(--accent)">Festivals</em></h2>
-    <div class="f-awards-grid" id="awards">
+    <h2 style="font-family:var(--serif);font-size:clamp(2rem,4vw,3rem);font-weight:300">Awards &amp; <em style="font-style:italic;color:var(--accent)">Festivals</em></h2>
+    <div class="f-awards-grid">
       <div class="f-award-card reveal-up"><div class="f-award-year">2024</div><h3 class="f-award-title">Best Cinematography</h3><p class="f-award-evt">Your Festival Here</p></div>
       <div class="f-award-card reveal-up delay-1"><div class="f-award-year">2023</div><h3 class="f-award-title">Best Short Film</h3><p class="f-award-evt">Your Festival Here</p></div>
       <div class="f-award-card reveal-up delay-2"><div class="f-award-year">2023</div><h3 class="f-award-title">Official Selection</h3><p class="f-award-evt">Your Festival Here</p></div>
@@ -160,21 +218,41 @@
     </div>
   </section>
 
-  <!-- Video modal -->
-  <div class="v-modal" id="vModal">
-    <div class="v-modal-inner">
-      <button class="v-modal-close">✕</button>
-      <video id="vModalVid" controls></video>
-    </div>
+  <!-- CTA BAND -->
+  <div class="f-cta">
+    <h3>A story worth <em>telling?</em></h3>
+    <a href="#contact" class="btn-primary">Let's Film It</a>
   </div>
 
-  <footer class="footer" style="position:relative;z-index:2">
+  <!-- VIDEO MODAL -->
+  <div class="v-modal" id="vModal"><div class="v-modal-inner"><button class="v-modal-close">✕</button><video id="vModalVid" controls></video></div></div>
+
+  <!-- FOOTER -->
+  <footer class="footer" id="contact">
     <div class="footer-inner">
       <div class="footer-top">
         <div class="footer-brand"><img src="../assets/logo.jpg" alt="PB" class="footer-logo-img"/><div><div class="footer-logo-text">PAULI<em>_B</em></div><p>Crafting extraordinary experiences.</p></div></div>
-        <nav class="footer-nav"><a href="graphics.html">Graphics</a><a href="webdev.html">Web Dev</a><a href="film.html">Film</a></nav>
+        <div class="footer-email-box">
+          <h4>Collaborate</h4>
+          <p>Have a story to tell? Let's bring it to the screen.</p>
+          <form class="footer-form stacked-form" id="contact-form" action="https://formspree.io/f/xeedlkgd" method="POST">
+            <div class="form-group"><input type="email" name="email" placeholder="Your email address" required class="footer-input"/></div>
+            <div class="form-group"><textarea name="message" placeholder="Tell me about your film project..." required class="footer-textarea" rows="3"></textarea></div>
+            <button type="submit" class="footer-submit-btn"><span>Send Message</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+          </form>
+          <p id="form-status" style="font-size:.75rem;margin-top:.5rem;display:none;color:var(--accent)"></p>
+        </div>
+        <nav class="footer-nav"><a href="graphics.html">Graphics Design</a><a href="webdev.html">Web Development</a><a href="film.html">Film &amp; Motion</a><a href="../index.html">Home</a></nav>
       </div>
-      <div class="footer-bottom"><p>© 2025 Pauli_B. All rights reserved.</p></div>
+      <div class="footer-bottom">
+        <div class="footer-legal"><p>© 2025 Pauli_B. All rights reserved.</p><p class="footer-secret">Made with intention.</p></div>
+        <div class="footer-socials">
+          <a href="https://instagram.com/um_pauli_b" target="_blank" rel="noopener" class="social-icon" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+          <a href="https://twitter.com" target="_blank" rel="noopener" class="social-icon" aria-label="Twitter/X"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/></svg></a>
+          <a href="https://linkedin.com" target="_blank" rel="noopener" class="social-icon" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
+          <a href="https://github.com/pauli-bt" target="_blank" rel="noopener" class="social-icon" aria-label="GitHub"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg></a>
+        </div>
+      </div>
     </div>
   </footer>
 
@@ -183,8 +261,18 @@
   <script src="../js/global.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', () =>
-      loadPageFiles('film', { videos: 'fVideos', filmStrip: 'fStrip', reel: 'fReel', reelPh: 'fReelPh' })
+      loadPageFiles('film', { videos:'fVideos', filmStrip:'fStrip', reel:'fReel', reelPh:'fReelPh' })
     );
+    const form = document.getElementById('contact-form'), status = document.getElementById('form-status');
+    if (form) form.addEventListener('submit', async e => {
+      e.preventDefault(); const btn = form.querySelector('button[type=submit]');
+      btn.textContent = 'Sending…'; btn.disabled = true;
+      const res = await fetch(form.action, { method:'POST', body:new FormData(form), headers:{Accept:'application/json'} });
+      status.style.display = 'block';
+      if (res.ok) { status.textContent = '✓ Message sent! I\'ll be in touch soon.'; form.reset(); }
+      else { status.textContent = '✗ Something went wrong. Please try again.'; status.style.color='#ef4444'; }
+      btn.textContent = 'Send Message'; btn.disabled = false;
+    });
   </script>
 </body>
 </html>

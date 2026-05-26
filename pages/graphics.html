@@ -5,50 +5,136 @@
   <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
   <title>Graphics Design — PAULI_B</title>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300;1,600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Space+Grotesk:wght@300;400;500;700&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Space+Grotesk:wght@300;400;500;700&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="../css/global.css"/>
   <link rel="stylesheet" href="../css/pages.css"/>
   <style>
-    /* Override global cursor colors for graphics cream theme */
-    .cur-dot { background: #b83225; box-shadow: 0 0 12px #b83225; }
-    .cur-ring { border-color: rgba(184,50,37,.5); }
-    /* Nav overrides for light bg */
-    .nav-logo-img { border-color: rgba(184,50,37,.3); }
-    /* Footer on cream */
-    .footer { background: var(--bg2); }
-    .footer-logo-text em { color: var(--accent); }
-    .footer-nav a:hover { color: var(--accent); }
+    /* ── Graphics page token overrides ── */
+    .page-graphics {
+      --bg:#f4efe6; --bg2:#ebe5d8; --bg3:#dfd8c8;
+      --text:#18130d; --dim:rgba(24,19,13,.52); --faint:rgba(24,19,13,.07);
+      --accent:#b83225; --acl:#d9534f; --acd:rgba(184,50,37,.12); --acb:rgba(184,50,37,.22);
+      background:var(--bg); color:var(--text);
+    }
+    /* Ruled-paper texture */
+    body::before { content:''; position:fixed; inset:0; z-index:0; pointer-events:none;
+      background-image: repeating-linear-gradient(0deg, transparent, transparent 31px, rgba(24,19,13,.055) 31px, rgba(24,19,13,.055) 32px); }
+    /* Cursor */
+    .cur-dot { background:#b83225 !important; box-shadow:0 0 14px rgba(184,50,37,.7) !important; }
+    .cur-ring { border-color:rgba(184,50,37,.5) !important; }
+    /* Nav on light bg */
+    .nav { color:var(--text); }
+    .nav-logo-text { color:var(--text); }
+    .nav-logo-text em { color:var(--accent); }
+    .nav-logo-img { border-color:var(--acb); }
+    .nav-links a { color:var(--dim); }
+    .nav-links a:hover, .nav-links a.active { color:var(--text); }
+    .nav-links a::after { background:var(--accent); }
+    .nav-links a.active { color:var(--accent); }
+    .nav-burger span { background:var(--text); }
+    .nav-cta { background:var(--accent); color:#fff; }
+    .nav-cta:hover { background:var(--acl); }
+    .nav.scrolled { background:rgba(244,239,230,.93); border-bottom:1px solid var(--acb); }
     /* Overline */
-    .overline { color: var(--accent); }
-    .overline::before { background: var(--accent); }
+    .overline { color:var(--accent); }
+    .overline::before { background:var(--accent); }
     /* Buttons */
-    .btn-primary { background: var(--accent); }
-    .btn-primary:hover { background: var(--acl); }
-    .btn-outline { border-color: var(--acb); color: var(--text); }
-    .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
-    /* Gallery items */
-    .g-item { background: var(--bg3); border: 1px solid var(--acb); }
-    .gallery-empty { background: var(--bg2); }
-    .gallery-empty h4 { color: var(--text); }
-    /* Pills */
-    .pill { border-color: var(--acb); color: var(--accent); }
-    .pill:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
-    /* Filter buttons */
-    .filt { border-color: var(--acb); color: var(--dim); }
-    .filt.active, .filt:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
-    /* Marquee on cream */
-    .marquee-wrap { background: var(--bg2); border-color: var(--acb); }
-    .marquee-track span { color: var(--dim); }
-    .marquee-track .mdot { color: var(--accent); }
+    .btn-primary { background:var(--accent); color:#fff; }
+    .btn-primary:hover { background:var(--acl); box-shadow:0 12px 40px var(--acd); }
+    .btn-outline { border-color:var(--acb); color:var(--text); }
+    .btn-outline:hover { border-color:var(--accent); color:var(--accent); }
+    /* Filter pills */
+    .filt { border-color:var(--acb); color:var(--dim); }
+    .filt.active,.filt:hover { background:var(--accent); color:#fff; border-color:var(--accent); }
+    /* Gallery */
+    .g-item { background:var(--bg3); border:1px solid rgba(184,50,37,.12); }
+    .gallery-empty { background:var(--bg2); }
+    .gallery-empty h4 { color:var(--text); }
+    /* Marquee */
+    .marquee-wrap { background:var(--bg2); border-color:var(--acb); }
+    .marquee-track span { color:var(--dim); }
+    .marquee-track .mdot { color:var(--accent); }
+    /* Footer on cream */
+    .footer { background:var(--bg2); border-color:var(--acb); }
+    .footer-logo-text em { color:var(--accent); }
+    .footer-brand p { color:var(--dim); }
+    .footer-nav a { color:var(--dim); }
+    .footer-nav a:hover { color:var(--accent); }
+    .footer-bottom p { color:rgba(24,19,13,.3); }
+    .footer-email-box h4 { color:var(--text); }
+    .footer-email-box p { color:var(--dim); }
+    .footer-input,.footer-textarea { color:var(--text); }
+    .footer-input::placeholder,.footer-textarea::placeholder { color:rgba(24,19,13,.3); }
+    .footer-form .form-group { background:var(--bg3); border-color:var(--acb); }
+    .footer-submit-btn { background:var(--accent); color:#fff; }
+    .footer-submit-btn:hover { background:var(--acl); }
+    .social-icon { background:var(--bg3); border-color:var(--acb); color:var(--dim); }
+    .social-icon:hover { background:var(--accent); border-color:var(--accent); color:#fff; box-shadow:0 8px 20px var(--acd); }
+    /* Process items */
+    .g-process-item::before { background:linear-gradient(to right,var(--accent),transparent); }
+    .g-step-num { -webkit-text-stroke-color:rgba(184,50,37,.2); }
+
+    /* ── HERO ── */
+    .g-hero { min-height:65vh; display:flex; align-items:flex-end; padding:calc(var(--nav-h) + 5rem) clamp(1.25rem,4vw,4rem) 5rem; position:relative; overflow:hidden; background:var(--bg); }
+    .g-hero-blobs { position:absolute; inset:0; pointer-events:none; }
+    .g-blob { position:absolute; border-radius:50%; filter:blur(60px); }
+    .g-blob1 { width:500px; height:500px; background:rgba(184,50,37,.1); top:-15%; right:-8%; }
+    .g-blob2 { width:320px; height:320px; background:rgba(120,60,160,.07); bottom:-10%; left:5%; }
+    /* Compass SVG decoration */
+    .g-compass { position:absolute; right:clamp(5rem,13vw,14rem); top:50%; transform:translateY(-50%); width:clamp(160px,20vw,280px); opacity:.12; pointer-events:none; animation:compSpin 70s linear infinite; }
+    @keyframes compSpin { to { transform:translateY(-50%) rotate(360deg); } }
+    .g-hero-content { position:relative; z-index:2; }
+    .g-hero-title { font-family:'Playfair Display',serif; font-size:clamp(4rem,10vw,9rem); font-weight:400; line-height:.88; letter-spacing:-.02em; margin-bottom:1.75rem; }
+    .g-hero-title em { font-style:italic; color:var(--accent); }
+    .g-hero-sub { font-size:clamp(.85rem,1.4vw,1rem); color:var(--dim); max-width:480px; line-height:1.85; }
+    .g-hero-btns { margin-top:2.5rem; display:flex; gap:1rem; flex-wrap:wrap; }
+
+    /* ── SCROLLING STRIP ── */
+    .g-strip-wrap { background:var(--bg2); border-top:3px solid var(--accent); border-bottom:1px solid var(--acb); overflow:hidden; }
+    .g-strip { display:flex; gap:3px; overflow-x:auto; scrollbar-width:thin; }
+    .g-strip::-webkit-scrollbar { display:none; }
+    .g-strip-item { flex-shrink:0; width:clamp(200px,22vw,270px); height:clamp(200px,22vw,270px); background:var(--bg3); overflow:hidden; position:relative; border-right:1px solid var(--acb); transition:transform .4s; }
+    .g-strip-item:hover { transform:scaleY(1.02); z-index:2; }
+    .g-strip-item img { width:100%; height:100%; object-fit:cover; transition:transform .5s; }
+    .g-strip-item:hover img { transform:scale(1.05); }
+    .g-strip-ph { width:100%; height:100%; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:.6rem; color:var(--dim); font-size:.72rem; }
+    .g-strip-ph svg { width:28px; height:28px; opacity:.25; }
+
+    /* ── GALLERY ── */
+    .gallery-section { padding:5rem clamp(1.25rem,4vw,4rem); background:var(--bg); }
+
+    /* ── SKILLS ── */
+    .g-skills { padding:5rem clamp(1.25rem,4vw,4rem); background:var(--bg); position:relative; overflow:hidden; }
+    .g-skills::before { content:'DESIGN'; font-family:'Inter',sans-serif; font-weight:900; font-size:clamp(5rem,18vw,18rem); color:rgba(184,50,37,.035); position:absolute; right:-2rem; top:50%; transform:translateY(-50%); pointer-events:none; letter-spacing:-.06em; line-height:1; }
+    .skills-cloud { display:flex; flex-wrap:wrap; gap:.5rem; margin-top:2rem; }
+    .skill-pill { padding:.32rem .9rem; border-radius:100px; border:1.5px solid var(--acb); color:var(--accent); font-size:.7rem; font-weight:600; letter-spacing:.05em; transition:all .2s; cursor:none; }
+    .skill-pill:hover { background:var(--accent); color:#fff; border-color:var(--accent); }
+
+    /* ── PROCESS ── */
+    .g-process { padding:5rem clamp(1.25rem,4vw,4rem); background:var(--bg2); border-top:1px solid var(--acb); }
+    .g-process-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:2rem; margin-top:3rem; }
+    .g-process-item { padding-top:1.5rem; position:relative; }
+    .g-process-item::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(to right,var(--accent),transparent); }
+    .g-step-num { font-family:'Inter',sans-serif; font-size:3.5rem; font-weight:900; color:transparent; -webkit-text-stroke:1.5px rgba(184,50,37,.2); line-height:1; margin-bottom:.5rem; }
+    .g-step-title { font-family:'Playfair Display',serif; font-size:1.5rem; margin:.4rem 0 .6rem; }
+    .g-step-desc { font-size:.83rem; color:var(--dim); line-height:1.75; }
+
+    /* ── CTA BAND ── */
+    .g-cta-band { padding:5rem clamp(1.25rem,4vw,4rem); background:var(--bg); border-top:1px solid var(--acb); display:flex; align-items:center; justify-content:space-between; gap:2rem; flex-wrap:wrap; }
+    .g-cta-band h3 { font-family:'Playfair Display',serif; font-size:clamp(1.8rem,3vw,2.8rem); font-weight:400; }
+    .g-cta-band h3 em { font-style:italic; color:var(--accent); }
+
+    /* Responsive */
+    @media(max-width:768px) { .g-hero { padding-top:calc(var(--nav-h)+3rem); padding-bottom:3rem; } .g-compass { display:none; } }
   </style>
 </head>
 <body data-cursor="pencil">
 
+  <!-- Cursor with pencil icon -->
   <div class="cur" id="cur">
     <div class="cur-dot"></div>
     <div class="cur-ring"></div>
-    <!-- Pencil cursor icon -->
-    <div style="position:absolute;top:-18px;left:-2px;pointer-events:none;font-size:18px;transform:rotate(-45deg);filter:drop-shadow(0 0 4px rgba(184,50,37,.5))">✏️</div>
+    <div style="position:absolute;top:-20px;left:-4px;pointer-events:none;font-size:20px;transform:rotate(-45deg);filter:drop-shadow(0 0 5px rgba(184,50,37,.5))">✏️</div>
   </div>
 
   <nav class="nav" id="nav">
@@ -62,54 +148,43 @@
       <li><a href="webdev.html">Web Dev</a></li>
       <li><a href="film.html">Film</a></li>
     </ul>
-    <a href="webdev.html" class="nav-cta">Web Dev →</a>
+    <a href="#contact" class="nav-cta">Let's Create</a>
     <button class="nav-burger" id="burger"><span></span><span></span></button>
   </nav>
 
   <div class="mob-menu" id="mobMenu">
     <button class="mob-close" id="mobClose">✕</button>
     <nav class="mob-nav">
-      <a href="../index.html">Home</a>
-      <a href="graphics.html">Graphics</a>
-      <a href="webdev.html">Web Dev</a>
-      <a href="film.html">Film</a>
+      <a href="../index.html">Home</a><a href="graphics.html">Graphics</a><a href="webdev.html">Web Dev</a><a href="film.html">Film</a><a href="#contact">Let's Create</a>
     </nav>
-    <div class="mob-footer">
-      <img src="../assets/logo.jpg" alt="PB" class="mob-logo"/>
-      <span>PAULI_B © 2025</span>
-    </div>
+    <div class="mob-footer"><img src="../assets/logo.jpg" alt="PB" class="mob-logo"/><span>PAULI_B © 2025</span></div>
   </div>
 
   <!-- HERO -->
   <section class="g-hero">
-    <div class="g-hero-bg">
-      <div class="g-blob1 g-hero-blob"></div>
-      <div class="g-blob2 g-hero-blob"></div>
+    <div class="g-hero-blobs">
+      <div class="g-blob g-blob1"></div>
+      <div class="g-blob g-blob2"></div>
     </div>
-    <!-- Compass decoration -->
-    <svg class="g-compass" viewBox="0 0 200 200" fill="none" stroke="#18130d" stroke-width=".8">
-      <circle cx="100" cy="100" r="90" stroke-dasharray="4 6" opacity=".6"/>
-      <circle cx="100" cy="100" r="65" opacity=".4"/>
-      <circle cx="100" cy="100" r="40" stroke="#b83225" stroke-dasharray="2 4" opacity=".7"/>
-      <line x1="100" y1="10" x2="100" y2="190" opacity=".3"/>
-      <line x1="10" y1="100" x2="190" y2="100" opacity=".3"/>
-      <line x1="30" y1="30" x2="170" y2="170" opacity=".15"/>
-      <line x1="170" y1="30" x2="30" y2="170" opacity=".15"/>
-      <circle cx="100" cy="100" r="5" fill="#b83225" opacity=".7"/>
-      <polygon points="100,14 104,24 96,24" fill="#18130d" opacity=".4"/>
-      <polygon points="186,100 176,104 176,96" fill="#18130d" opacity=".4"/>
-      <polygon points="100,186 104,176 96,176" fill="#18130d" opacity=".4"/>
-      <polygon points="14,100 24,104 24,96" fill="#18130d" opacity=".4"/>
+    <!-- Rotating compass decoration -->
+    <svg class="g-compass" viewBox="0 0 200 200" fill="none" stroke="#18130d">
+      <circle cx="100" cy="100" r="90" stroke-width=".8" stroke-dasharray="4 6" opacity=".7"/>
+      <circle cx="100" cy="100" r="65" stroke-width=".5" opacity=".5"/>
+      <circle cx="100" cy="100" r="40" stroke="#b83225" stroke-width=".8" stroke-dasharray="2 4" opacity=".8"/>
+      <line x1="100" y1="10" x2="100" y2="190" stroke-width=".4" opacity=".35"/>
+      <line x1="10" y1="100" x2="190" y2="100" stroke-width=".4" opacity=".35"/>
+      <line x1="30" y1="30" x2="170" y2="170" stroke-width=".3" opacity=".18"/>
+      <line x1="170" y1="30" x2="30" y2="170" stroke-width=".3" opacity=".18"/>
+      <circle cx="100" cy="100" r="5" fill="#b83225" opacity=".75"/>
+      <polygon points="100,14 104,24 96,24" fill="#18130d" opacity=".45"/>
+      <polygon points="186,100 176,104 176,96" fill="#18130d" opacity=".45"/>
+      <polygon points="100,186 104,176 96,176" fill="#18130d" opacity=".45"/>
+      <polygon points="14,100 24,104 24,96" fill="#18130d" opacity=".45"/>
     </svg>
-
     <div class="g-hero-content reveal-up">
       <p class="overline">Discipline One — Ink &amp; Vision</p>
-      <h1 class="g-hero-title" style="font-family:'Playfair Display',serif;font-size:clamp(4rem,10vw,9rem);font-weight:400;line-height:.88;letter-spacing:-.02em;margin-bottom:1.5rem">
-        Graphics<br/><em>Design</em>
-      </h1>
-      <p style="font-size:clamp(.85rem,1.5vw,1rem);color:var(--dim);max-width:460px;line-height:1.8">
-        Visual identities that speak before words. Every mark placed with artistic intention — from brand systems to editorial masterpieces.
-      </p>
+      <h1 class="g-hero-title">Graphics<br/><em>Design</em></h1>
+      <p class="g-hero-sub">Visual identities that speak before words. Every mark placed with artistic intention — from brand systems to editorial masterpieces that endure.</p>
       <div class="g-hero-btns">
         <a href="#gallery" class="btn-primary">View Gallery</a>
         <a href="#process" class="btn-outline">Our Process</a>
@@ -117,7 +192,7 @@
     </div>
   </section>
 
-  <!-- Showcase strip -->
+  <!-- SHOWCASE STRIP -->
   <div class="g-strip-wrap">
     <div class="g-strip" id="gStrip">
       <div class="g-strip-item"><div class="g-strip-ph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><span>Upload artwork</span></div></div>
@@ -128,9 +203,9 @@
     </div>
   </div>
 
-  <!-- Gallery -->
-  <section class="gallery-section" id="gallery" style="background:var(--bg)">
-    <div class="gallery-top">
+  <!-- GALLERY -->
+  <section class="gallery-section" id="gallery">
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:1.5rem;margin-bottom:2.5rem">
       <div>
         <p class="overline">Portfolio</p>
         <h2 style="font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,3rem);font-weight:400">Selected <em style="font-style:italic;color:var(--accent)">Works</em></h2>
@@ -145,48 +220,101 @@
     </div>
     <div class="gallery-grid" id="gGallery">
       <div class="gallery-empty" style="grid-column:1/-1;text-align:center;padding:6rem 2rem;background:var(--bg2)">
-        <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width=".8" style="margin:0 auto 1.5rem;opacity:.2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
-        <h4 style="font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:400;margin-bottom:.5rem">No Artwork Yet</h4>
+        <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width=".7" style="margin:0 auto 1.5rem;opacity:.2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+        <h4 style="font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:400;margin-bottom:.5rem;color:var(--text)">No Artwork Yet</h4>
         <p style="font-size:.85rem;color:var(--dim)">Upload your graphics via the Admin Panel under the Graphics category.</p>
       </div>
     </div>
   </section>
 
-  <!-- Marquee -->
+  <!-- MARQUEE -->
   <div class="marquee-wrap">
     <div class="marquee-track">
       <span>BRAND IDENTITY</span><span class="mdot">·</span><span>TYPOGRAPHY</span><span class="mdot">·</span><span>ILLUSTRATION</span><span class="mdot">·</span><span>PRINT DESIGN</span><span class="mdot">·</span><span>UI / UX</span><span class="mdot">·</span><span>MOTION GRAPHICS</span><span class="mdot">·</span><span>BRAND IDENTITY</span><span class="mdot">·</span><span>TYPOGRAPHY</span><span class="mdot">·</span><span>ILLUSTRATION</span><span class="mdot">·</span><span>PRINT DESIGN</span><span class="mdot">·</span><span>UI / UX</span><span class="mdot">·</span><span>MOTION GRAPHICS</span><span class="mdot">·</span>
     </div>
   </div>
 
-  <!-- Skills -->
+  <!-- SKILLS -->
   <section class="g-skills">
     <p class="overline">Toolkit</p>
     <h2 style="font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,3rem);font-weight:400;margin-bottom:.5rem">Skills &amp; <em style="font-style:italic;color:var(--accent)">Software</em></h2>
-    <div class="g-skills-grid">
-      <span class="pill reveal-fade">Adobe Photoshop</span><span class="pill reveal-fade">Adobe Illustrator</span><span class="pill reveal-fade">Adobe InDesign</span><span class="pill reveal-fade">Figma</span><span class="pill reveal-fade">After Effects</span><span class="pill reveal-fade">Brand Identity</span><span class="pill reveal-fade">Typography</span><span class="pill reveal-fade">Print Design</span><span class="pill reveal-fade">UI / UX Design</span><span class="pill reveal-fade">Illustration</span><span class="pill reveal-fade">Motion Graphics</span><span class="pill reveal-fade">Packaging Design</span>
+    <div class="skills-cloud">
+      <span class="skill-pill reveal-fade">Adobe Photoshop</span><span class="skill-pill reveal-fade">Adobe Illustrator</span><span class="skill-pill reveal-fade">Adobe InDesign</span><span class="skill-pill reveal-fade">Figma</span><span class="skill-pill reveal-fade">After Effects</span><span class="skill-pill reveal-fade">Brand Identity</span><span class="skill-pill reveal-fade">Typography</span><span class="skill-pill reveal-fade">Print Design</span><span class="skill-pill reveal-fade">UI / UX Design</span><span class="skill-pill reveal-fade">Illustration</span><span class="skill-pill reveal-fade">Motion Graphics</span><span class="skill-pill reveal-fade">Packaging Design</span>
     </div>
   </section>
 
-  <!-- Process -->
+  <!-- PROCESS -->
   <section class="g-process" id="process">
     <p class="overline">Methodology</p>
     <h2 style="font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,3rem);font-weight:400">The Creative <em style="font-style:italic;color:var(--accent)">Process</em></h2>
     <div class="g-process-grid">
-      <div class="g-process-item reveal-up"><div class="g-step-num">01</div><h3 class="g-step-title">Discovery</h3><p class="g-step-desc">Deep dive into your brand, audience, and vision before a single mark is made.</p></div>
-      <div class="g-process-item reveal-up delay-1"><div class="g-step-num">02</div><h3 class="g-step-title">Concept</h3><p class="g-step-desc">Mood boards, sketches, and directional frameworks that shape the visual language.</p></div>
-      <div class="g-process-item reveal-up delay-2"><div class="g-step-num">03</div><h3 class="g-step-title">Refine</h3><p class="g-step-desc">Collaborative feedback loops sharpening every detail until it sings.</p></div>
-      <div class="g-process-item reveal-up delay-3"><div class="g-step-num">04</div><h3 class="g-step-title">Deliver</h3><p class="g-step-desc">Final assets with brand guidelines, ready for every medium and context.</p></div>
+      <div class="g-process-item reveal-up"><div class="g-step-num">01</div><h3 class="g-step-title">Discovery</h3><p class="g-step-desc">Deep dive into your brand, audience and vision. No marks made before the context is understood.</p></div>
+      <div class="g-process-item reveal-up delay-1"><div class="g-step-num">02</div><h3 class="g-step-title">Concept</h3><p class="g-step-desc">Mood boards, rough sketches and directional frameworks that shape the visual language.</p></div>
+      <div class="g-process-item reveal-up delay-2"><div class="g-step-num">03</div><h3 class="g-step-title">Refine</h3><p class="g-step-desc">Collaborative feedback loops. Iteration until every detail sings in perfect harmony.</p></div>
+      <div class="g-process-item reveal-up delay-3"><div class="g-step-num">04</div><h3 class="g-step-title">Deliver</h3><p class="g-step-desc">Final assets with brand guidelines — ready for every medium and every context.</p></div>
     </div>
   </section>
 
-  <footer class="footer">
+  <!-- CTA BAND -->
+  <div class="g-cta-band">
+    <h3>Ready to build something <em>iconic?</em></h3>
+    <a href="#contact" class="btn-primary">Start a Project</a>
+  </div>
+
+  <!-- FOOTER with email form + socials (same as home) -->
+  <footer class="footer" id="contact">
     <div class="footer-inner">
       <div class="footer-top">
-        <div class="footer-brand"><img src="../assets/logo.jpg" alt="PB" class="footer-logo-img"/><div><div class="footer-logo-text">PAULI<em>_B</em></div><p>Crafting extraordinary experiences.</p></div></div>
-        <nav class="footer-nav"><a href="graphics.html">Graphics</a><a href="webdev.html">Web Dev</a><a href="film.html">Film</a></nav>
+        <div class="footer-brand">
+          <img src="../assets/logo.jpg" alt="PB" class="footer-logo-img"/>
+          <div>
+            <div class="footer-logo-text">PAULI<em>_B</em></div>
+            <p>Crafting extraordinary experiences.</p>
+          </div>
+        </div>
+
+        <div class="footer-email-box">
+          <h4>Start a Project</h4>
+          <p>Have a creative vision? Let's bring it to life.</p>
+          <form class="footer-form stacked-form" id="contact-form" action="https://formspree.io/f/xeedlkgd" method="POST">
+            <div class="form-group"><input type="email" name="email" placeholder="Your email address" required class="footer-input"/></div>
+            <div class="form-group"><textarea name="message" placeholder="Tell me about your project..." required class="footer-textarea" rows="3"></textarea></div>
+            <button type="submit" class="footer-submit-btn">
+              <span>Send Message</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </button>
+          </form>
+          <p id="form-status" style="font-size:.75rem;margin-top:.5rem;display:none;color:var(--accent)"></p>
+        </div>
+
+        <nav class="footer-nav">
+          <a href="graphics.html">Graphics Design</a>
+          <a href="webdev.html">Web Development</a>
+          <a href="film.html">Film &amp; Motion</a>
+          <a href="../index.html">Home</a>
+        </nav>
       </div>
-      <div class="footer-bottom"><p>© 2025 Pauli_B. All rights reserved.</p></div>
+
+      <div class="footer-bottom">
+        <div class="footer-legal">
+          <p>© 2025 Pauli_B. All rights reserved.</p>
+          <p class="footer-secret">Made with intention.</p>
+        </div>
+        <div class="footer-socials">
+          <a href="https://instagram.com/um_pauli_b" target="_blank" rel="noopener" class="social-icon" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+          </a>
+          <a href="https://twitter.com" target="_blank" rel="noopener" class="social-icon" aria-label="Twitter/X">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/></svg>
+          </a>
+          <a href="https://linkedin.com" target="_blank" rel="noopener" class="social-icon" aria-label="LinkedIn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+          </a>
+          <a href="https://github.com/pauli-bt" target="_blank" rel="noopener" class="social-icon" aria-label="GitHub">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+          </a>
+        </div>
+      </div>
     </div>
   </footer>
 
@@ -195,8 +323,21 @@
   <script src="../js/global.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', () =>
-      loadPageFiles('graphics', { gallery: 'gGallery', strip: 'gStrip' })
+      loadPageFiles('graphics', { gallery:'gGallery', strip:'gStrip' })
     );
+    // Formspree handler
+    const form = document.getElementById('contact-form');
+    const status = document.getElementById('form-status');
+    if (form) form.addEventListener('submit', async e => {
+      e.preventDefault();
+      const btn = form.querySelector('button[type=submit]');
+      btn.textContent = 'Sending…'; btn.disabled = true;
+      const res = await fetch(form.action, { method:'POST', body:new FormData(form), headers:{Accept:'application/json'} });
+      status.style.display = 'block';
+      if (res.ok) { status.textContent = '✓ Message sent! I\'ll get back to you soon.'; form.reset(); }
+      else { status.textContent = '✗ Something went wrong. Try again.'; status.style.color='#e74c3c'; }
+      btn.textContent = 'Send Message'; btn.disabled = false;
+    });
   </script>
 </body>
 </html>

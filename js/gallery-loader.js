@@ -1,6 +1,6 @@
-/* gallery-loader.js — reads from IndexedDB and populates pages */
+/* gallery-loader.js — reads from IndexedDB and populates portfolio pages */
 async function loadPageFiles(cat, opts) {
-  if (!window.PB) { console.warn('PB not ready'); return; }
+  if (!window.PB) { console.warn('PB storage not ready'); return; }
   const all  = await PB.getAll(cat);
   const imgs = all.filter(f => f.type?.startsWith('image'));
   const vids = all.filter(f => f.type?.startsWith('video'));
@@ -14,7 +14,7 @@ async function loadPageFiles(cat, opts) {
           <img src="${f.data}" alt="${f.name}" loading="lazy"/>
           <div class="g-item-overlay">
             <div class="g-item-info">
-              <h4>${f.name.replace(/\.[^.]+$/, '')}</h4>
+              <h4>${f.name.replace(/\.[^.]+$/,'')}</h4>
               <p>${(f.tags || [cat]).join(', ')}</p>
             </div>
           </div>
@@ -22,7 +22,7 @@ async function loadPageFiles(cat, opts) {
     }
   }
 
-  // Horizontal strip
+  // Horizontal strip (graphics)
   if (opts.strip && imgs.length) {
     const el = document.getElementById(opts.strip);
     if (el) el.innerHTML = imgs.map(f => `
@@ -43,27 +43,29 @@ async function loadPageFiles(cat, opts) {
   // Video grid
   if (opts.videos && vids.length) {
     const el = document.getElementById(opts.videos);
-    if (el) el.innerHTML = vids.map(f => `
-      <div class="v-card" onclick="openVideo('${f.data}')">
-        <div class="v-thumb">
-          <video src="${f.data}" muted preload="metadata"></video>
-          <div class="v-play"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
-        </div>
-        <div class="v-info">
-          <h4>${f.name.replace(/\.[^.]+$/, '')}</h4>
-          <p>${(f.tags || []).join(', ') || cat}</p>
-          <div class="v-meta"><span class="v-tag">${cat}</span></div>
-        </div>
-      </div>`).join('');
+    if (el) {
+      el.innerHTML = vids.map(f => `
+        <div class="v-card" onclick="openVideo('${f.data.replace(/'/g,"\\'")}')">
+          <div class="v-thumb">
+            <video src="${f.data}" muted preload="metadata"></video>
+            <div class="v-play"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
+          </div>
+          <div class="v-info">
+            <h4>${f.name.replace(/\.[^.]+$/,'')}</h4>
+            <p>${(f.tags||[]).join(', ') || cat}</p>
+            <div class="v-meta"><span class="v-tag">${cat}</span></div>
+          </div>
+        </div>`).join('');
+    }
   }
 
   // Showreel
   if (opts.reel && vids.length) {
     const el = document.getElementById(opts.reel);
     if (el) {
-      const sr = vids.find(f => (f.tags || []).includes('showreel')) || vids[0];
+      const sr = vids.find(f => (f.tags||[]).includes('showreel')) || vids[0];
       el.innerHTML = `<video src="${sr.data}" controls style="width:100%;height:100%;object-fit:cover"></video>`;
-      const ph = document.getElementById(opts.reelPh);
+      const ph = opts.reelPh ? document.getElementById(opts.reelPh) : null;
       if (ph) ph.style.display = 'none';
     }
   }
@@ -71,10 +73,10 @@ async function loadPageFiles(cat, opts) {
   // Webdev screenshots → project cards
   if (opts.projects && imgs.length) {
     const el = document.getElementById(opts.projects);
-    if (el) el.innerHTML = imgs.map((f, i) => `
+    if (el) el.innerHTML = imgs.map((f,i) => `
       <div class="w-proj-card" data-num="0${i+1}">
         <div class="w-proj-url">// project_0${i+1}</div>
-        <h3 class="w-proj-name">${f.name.replace(/\.[^.]+$/, '').replace(/[-_]/g,' ')}</h3>
+        <h3 class="w-proj-name">${f.name.replace(/\.[^.]+$/,'').replace(/[-_]/g,' ')}</h3>
         <div class="w-proj-tags">${(f.tags||[]).map(t=>`<span class="w-proj-tag">${t}</span>`).join('') || '<span class="w-proj-tag">web dev</span>'}</div>
         <div class="w-proj-screen"><img src="${f.data}" alt="${f.name}"/></div>
       </div>`).join('');

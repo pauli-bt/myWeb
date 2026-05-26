@@ -9,27 +9,105 @@
   <link rel="stylesheet" href="../css/global.css"/>
   <link rel="stylesheet" href="../css/pages.css"/>
   <style>
-    :root { font-family: 'Space Grotesk', sans-serif; }
-    .cur-dot { background: #39ff14 !important; box-shadow: 0 0 14px #39ff14 !important; }
-    .cur-ring { border-color: rgba(57,255,20,.45) !important; box-shadow: 0 0 20px rgba(57,255,20,.1) !important; }
-    /* Code cursor icon */
-    .cur-icon { position: absolute; top: -16px; left: 8px; font-size: 14px; pointer-events: none; }
-    .overline { color: var(--accent); }
-    .overline::before { background: var(--accent); }
-    .footer { background: var(--bg2); border-color: var(--acb); }
-    .footer-logo-text em { color: var(--accent); }
-    .btn-primary { background: var(--accent); color: #000; }
-    .btn-primary:hover { background: var(--acl); }
-    .btn-outline { border-color: var(--acb); color: var(--text); }
-    .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
-    .filt { border-color: var(--acb); color: var(--dim); }
-    .filt.active, .filt:hover { background: var(--accent); color: #000; border-color: var(--accent); }
-    .v-card { background: var(--bg2); }
-    .v-play { background: var(--accent); }
-    .v-play svg { fill: #000; }
-    .v-tag { color: var(--accent); }
-    .marquee-wrap { background: var(--bg2); border-color: var(--acb); }
-    .marquee-track .mdot { color: var(--accent); }
+    .page-webdev {
+      --bg:#010101; --bg2:#030a03; --bg3:#071007;
+      --text:#d0ffd0; --dim:rgba(180,255,180,.45); --faint:rgba(57,255,20,.06);
+      --accent:#39ff14; --acl:#80ff60; --acd:rgba(57,255,20,.12); --acb:rgba(57,255,20,.2);
+      background:var(--bg); color:var(--text); font-family:'Space Grotesk',sans-serif;
+    }
+    body::after { content:''; position:fixed; inset:0; z-index:1; pointer-events:none; background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,.04) 2px,rgba(0,0,0,.04) 4px); }
+    .cur-dot { background:#39ff14 !important; box-shadow:0 0 14px #39ff14 !important; }
+    .cur-ring { border-color:rgba(57,255,20,.45) !important; box-shadow:0 0 20px rgba(57,255,20,.1) !important; }
+    .overline { color:var(--accent); } .overline::before { background:var(--accent); }
+    .nav-logo-text em { color:var(--accent); }
+    .nav-links a.active { color:var(--accent); }
+    .nav-links a::after { background:var(--accent); }
+    .nav-cta { background:var(--accent); color:#000; }
+    .nav-cta:hover { background:var(--acl); }
+    .nav.scrolled { background:rgba(1,1,1,.93); border-bottom:1px solid var(--acb); }
+    .btn-primary { background:var(--accent); color:#000; }
+    .btn-primary:hover { background:var(--acl); box-shadow:0 12px 40px var(--acd); }
+    .btn-outline { border-color:var(--acb); color:var(--text); }
+    .btn-outline:hover { border-color:var(--accent); color:var(--accent); }
+    .filt { border-color:var(--acb); color:var(--dim); }
+    .filt.active,.filt:hover { background:var(--accent); color:#000; border-color:var(--accent); }
+    .v-play { background:var(--accent); } .v-play svg { fill:#000; }
+    .v-tag,.v-card h4 { color:var(--text); }
+    .v-card { background:var(--bg2); border-color:var(--acb); }
+    .v-card:hover { border-color:var(--accent); }
+    .v-info p { color:var(--dim); }
+    .marquee-wrap { background:var(--bg2); border-color:var(--acb); }
+    .marquee-track .mdot { color:var(--accent); }
+    .footer { background:var(--bg2); border-color:var(--acb); }
+    .footer-logo-text em { color:var(--accent); }
+    .footer-nav a:hover { color:var(--accent); }
+    .footer-email-box h4 { color:var(--text); }
+    .footer-form .form-group { background:var(--bg3); border-color:var(--acb); }
+    .footer-form .form-group:focus-within { border-color:var(--accent); }
+    .footer-input,.footer-textarea { color:var(--text); }
+    .footer-input::placeholder,.footer-textarea::placeholder { color:rgba(57,255,20,.2); }
+    .footer-submit-btn { background:var(--accent); color:#000; }
+    .footer-submit-btn:hover { background:var(--acl); }
+    .social-icon { background:var(--bg3); border-color:var(--acb); color:var(--dim); }
+    .social-icon:hover { background:var(--accent); border-color:var(--accent); color:#000; box-shadow:0 8px 20px var(--acd); }
+    .footer-bottom p { color:rgba(208,255,208,.2); }
+
+    /* Hero */
+    .w-hero { min-height:100vh; display:flex; flex-direction:column; justify-content:center; padding: calc(var(--nav-h) + 3rem) clamp(1.25rem,4vw,4rem) 4rem; position:relative; overflow:hidden; }
+    .w-grid-bg { position:absolute; inset:0; background-image:linear-gradient(rgba(57,255,20,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(57,255,20,.04) 1px,transparent 1px); background-size:48px 48px; z-index:0; }
+    .w-glow { position:absolute; inset:0; background:radial-gradient(ellipse 55% 55% at 50% 50%,rgba(57,255,20,.06),transparent 70%); z-index:0; pointer-events:none; }
+    .w-hero-label { font-size:.68rem; font-weight:700; letter-spacing:.3em; text-transform:uppercase; color:var(--accent); margin-bottom:1.5rem; display:flex; align-items:center; gap:.5rem; position:relative; z-index:2; font-family:'JetBrains Mono',monospace; }
+    .w-hero-label::before { content:'> '; opacity:.6; }
+    .w-hero h1 { font-family:'Space Grotesk',sans-serif; font-size:clamp(3rem,8vw,7rem); font-weight:700; line-height:.95; letter-spacing:-.04em; margin-bottom:1.5rem; position:relative; z-index:2; }
+    .w-stroke { -webkit-text-stroke:1.5px var(--accent); color:transparent; }
+    .w-hero p { font-size:clamp(.82rem,1.4vw,.95rem); color:var(--dim); max-width:500px; line-height:1.8; margin-bottom:2.5rem; position:relative; z-index:2; font-family:'JetBrains Mono',monospace; font-size:.82rem; }
+    .w-hero p::before { content:'// '; color:var(--accent); opacity:.6; }
+    .w-hero-btns { display:flex; gap:1rem; flex-wrap:wrap; position:relative; z-index:2; }
+
+    /* Terminal */
+    .w-terminal { background:#000; border:1px solid var(--acb); border-radius:10px; overflow:hidden; max-width:640px; position:relative; z-index:2; margin:3rem 0; }
+    .w-terminal-bar { background:#111; padding:.65rem 1rem; display:flex; align-items:center; gap:.5rem; border-bottom:1px solid var(--acb); }
+    .w-t-dot { width:10px; height:10px; border-radius:50%; }
+    .w-terminal-bar span { margin-left:.5rem; font-size:.68rem; color:var(--dim); opacity:.45; font-family:'JetBrains Mono',monospace; }
+    .w-terminal-body { padding:1.5rem; font-family:'JetBrains Mono',monospace; font-size:.8rem; color:var(--accent); line-height:2.1; }
+    .w-t-prompt::before { content:'pauli@studio:~$ '; color:var(--acl); opacity:.8; }
+    .w-t-out { color:rgba(150,255,150,.65); }
+    .w-t-comment { color:rgba(100,200,100,.35); }
+    .blink { animation:blink 1.1s step-end infinite; }
+    @keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+
+    /* Tech stack */
+    .tech-section { padding:5rem clamp(1.25rem,4vw,4rem); background:var(--bg2); border-top:1px solid var(--acb); border-bottom:1px solid var(--acb); position:relative; z-index:2; }
+    .tech-cloud { display:flex; flex-wrap:wrap; gap:.5rem; margin-top:1.5rem; }
+    .tech-pill { padding:.3rem .9rem; border-radius:100px; border:1.5px solid var(--acb); color:var(--accent); font-size:.7rem; font-weight:600; letter-spacing:.05em; transition:all .2s; cursor:none; font-family:'JetBrains Mono',monospace; }
+    .tech-pill:hover { background:var(--accent); color:#000; }
+
+    /* Video demos */
+    .w-demos { padding:5rem clamp(1.25rem,4vw,4rem); position:relative; z-index:2; }
+    .w-demos h2 { font-family:'Space Grotesk',sans-serif; font-size:clamp(2rem,4vw,3rem); font-weight:700; margin-bottom:.5rem; }
+    .w-demos h2 em { font-style:normal; color:var(--accent); }
+
+    /* Projects grid */
+    .w-projects { padding:5rem clamp(1.25rem,4vw,4rem); background:var(--bg2); border-top:1px solid var(--acb); position:relative; z-index:2; }
+    .w-projects h2 { font-family:'Space Grotesk',sans-serif; font-size:clamp(2rem,4vw,3rem); font-weight:700; margin-bottom:.5rem; }
+    .w-projects h2 em { font-style:normal; color:var(--accent); }
+    .w-proj-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:2px; background:var(--acb); border-radius:12px; overflow:hidden; margin-top:2.5rem; }
+    .w-proj-card { background:var(--bg2); padding:2.5rem; position:relative; overflow:hidden; transition:background .3s; }
+    .w-proj-card:hover { background:var(--bg3); }
+    .w-proj-card::before { content:attr(data-num); position:absolute; top:-2rem; right:.5rem; font-family:'Space Grotesk',sans-serif; font-size:8rem; font-weight:900; color:transparent; -webkit-text-stroke:1px rgba(57,255,20,.08); line-height:1; pointer-events:none; }
+    .w-proj-url { font-size:.62rem; font-weight:700; letter-spacing:.15em; color:var(--accent); text-transform:uppercase; margin-bottom:.5rem; font-family:'JetBrains Mono',monospace; }
+    .w-proj-name { font-size:1.8rem; font-weight:700; margin-bottom:.75rem; line-height:1.1; }
+    .w-proj-desc { font-size:.83rem; color:var(--dim); line-height:1.75; margin-bottom:1.5rem; }
+    .w-proj-tags { display:flex; flex-wrap:wrap; gap:.4rem; }
+    .w-proj-tag { padding:.2rem .6rem; font-size:.62rem; font-weight:600; letter-spacing:.06em; border:1px solid var(--acb); color:var(--accent); border-radius:4px; font-family:'JetBrains Mono',monospace; }
+    .w-proj-screen { aspect-ratio:16/9; background:var(--bg3); overflow:hidden; margin-top:1.5rem; border:1px solid var(--acb); border-radius:6px; display:flex; align-items:center; justify-content:center; }
+    .w-proj-screen img { width:100%; height:100%; object-fit:cover; }
+    .w-proj-ph { color:var(--dim); font-size:.72rem; font-family:'JetBrains Mono',monospace; opacity:.4; }
+
+    /* CTA band */
+    .w-cta { padding:5rem clamp(1.25rem,4vw,4rem); position:relative; z-index:2; display:flex; align-items:center; justify-content:space-between; gap:2rem; flex-wrap:wrap; border-top:1px solid var(--acb); }
+    .w-cta h3 { font-family:'Space Grotesk',sans-serif; font-size:clamp(1.8rem,3vw,2.8rem); font-weight:700; line-height:1.1; }
+    .w-cta h3 em { font-style:normal; color:var(--accent); }
   </style>
 </head>
 <body data-cursor="code">
@@ -37,51 +115,34 @@
   <div class="cur" id="cur">
     <div class="cur-dot"></div>
     <div class="cur-ring"></div>
-    <!-- Code icon -->
-    <div class="cur-icon" style="font-size:15px;color:#39ff14;filter:drop-shadow(0 0 5px #39ff14)">&lt;/&gt;</div>
+    <div style="position:absolute;top:-16px;left:6px;font-family:'JetBrains Mono',monospace;font-size:13px;color:#39ff14;pointer-events:none;filter:drop-shadow(0 0 6px #39ff14)">&lt;/&gt;</div>
   </div>
 
   <nav class="nav" id="nav">
-    <a href="../index.html" class="nav-logo">
-      <img src="../assets/logo.jpg" alt="PB" class="nav-logo-img"/>
-      <span class="nav-logo-text">PAULI<em>_B</em></span>
-    </a>
+    <a href="../index.html" class="nav-logo"><img src="../assets/logo.jpg" alt="PB" class="nav-logo-img"/><span class="nav-logo-text">PAULI<em>_B</em></span></a>
     <ul class="nav-links">
-      <li><a href="../index.html">Home</a></li>
-      <li><a href="graphics.html">Graphics</a></li>
-      <li><a href="webdev.html" class="active">Web Dev</a></li>
-      <li><a href="film.html">Film</a></li>
+      <li><a href="../index.html">Home</a></li><li><a href="graphics.html">Graphics</a></li><li><a href="webdev.html" class="active">Web Dev</a></li><li><a href="film.html">Film</a></li>
     </ul>
-    <a href="film.html" class="nav-cta">Film →</a>
+    <a href="#contact" class="nav-cta">Let's Build</a>
     <button class="nav-burger" id="burger"><span></span><span></span></button>
   </nav>
-
   <div class="mob-menu" id="mobMenu">
     <button class="mob-close" id="mobClose">✕</button>
-    <nav class="mob-nav">
-      <a href="../index.html">Home</a><a href="graphics.html">Graphics</a><a href="webdev.html">Web Dev</a><a href="film.html">Film</a>
-    </nav>
+    <nav class="mob-nav"><a href="../index.html">Home</a><a href="graphics.html">Graphics</a><a href="webdev.html">Web Dev</a><a href="film.html">Film</a><a href="#contact">Let's Build</a></nav>
     <div class="mob-footer"><img src="../assets/logo.jpg" alt="PB" class="mob-logo"/><span>PAULI_B © 2025</span></div>
   </div>
 
   <!-- HERO -->
   <section class="w-hero">
-    <div class="w-hero-bg"></div>
-    <div class="w-hero-grid"></div>
-
+    <div class="w-grid-bg"></div>
+    <div class="w-glow"></div>
     <p class="w-hero-label reveal-fade">discipline_02.exe — Web Development</p>
-    <h1 class="reveal-up">
-      Web<br/><span class="stroke">Dev</span>
-    </h1>
-    <p class="reveal-fade delay-1">
-      From pixel-perfect interfaces to full-stack architectures. Code that performs, endures, and delights.
-    </p>
-    <div style="display:flex;gap:1rem;flex-wrap:wrap;position:relative;z-index:2">
+    <h1 class="reveal-up">Web<br/><span class="w-stroke">Dev</span></h1>
+    <p class="reveal-fade delay-1">From pixel-perfect interfaces to full-stack architectures. Code that performs, endures and delights.</p>
+    <div class="w-hero-btns">
       <a href="#projects" class="btn-primary reveal-fade delay-2">View Projects</a>
       <a href="#stack" class="btn-outline reveal-fade delay-2">Tech Stack</a>
     </div>
-
-    <!-- Terminal -->
     <div class="w-terminal reveal-up delay-3">
       <div class="w-terminal-bar">
         <div class="w-t-dot" style="background:#ff5f57"></div>
@@ -103,80 +164,78 @@
     </div>
   </section>
 
-  <!-- Tech Stack -->
-  <section class="section" id="stack" style="background:var(--bg2);border-top:1px solid var(--acb);border-bottom:1px solid var(--acb)">
-    <div class="section-header">
-      <p class="overline">Arsenal</p>
-      <h2 class="section-header" style="font-family:'Space Grotesk',sans-serif;font-size:clamp(2rem,4vw,3rem);font-weight:700;color:var(--text);margin-bottom:2rem">Tech <em style="font-style:normal;color:var(--accent)">Stack</em></h2>
-    </div>
+  <!-- TECH STACK -->
+  <section class="tech-section" id="stack">
+    <p class="overline">Arsenal</p>
+    <h2 style="font-family:'Space Grotesk',sans-serif;font-size:clamp(2rem,4vw,3rem);font-weight:700;margin-bottom:1.5rem">Tech <em style="color:var(--accent)">Stack</em></h2>
     <div class="tech-cloud">
       <span class="tech-pill">React</span><span class="tech-pill">Next.js</span><span class="tech-pill">Vue.js</span><span class="tech-pill">TypeScript</span><span class="tech-pill">Tailwind CSS</span><span class="tech-pill">Node.js</span><span class="tech-pill">Express</span><span class="tech-pill">Python / Django</span><span class="tech-pill">PostgreSQL</span><span class="tech-pill">MongoDB</span><span class="tech-pill">GraphQL</span><span class="tech-pill">Docker</span><span class="tech-pill">AWS / Vercel</span><span class="tech-pill">Git / CI&amp;CD</span><span class="tech-pill">Three.js</span><span class="tech-pill">GSAP</span><span class="tech-pill">Figma → Code</span><span class="tech-pill">WebGL</span>
     </div>
   </section>
 
-  <!-- Video demos -->
-  <section class="video-section section">
-    <div class="section-header">
-      <p class="overline">Live Demos</p>
-      <h2 style="font-family:'Space Grotesk',sans-serif;font-size:clamp(2rem,4vw,3rem);font-weight:700;margin-bottom:2rem">Project <em style="font-style:normal;color:var(--accent)">Showcases</em></h2>
-    </div>
+  <!-- VIDEO DEMOS -->
+  <section class="w-demos">
+    <p class="overline">Live Demos</p>
+    <h2>Project <em>Showcases</em></h2>
+    <p style="font-size:.75rem;color:var(--dim);margin:.5rem 0 2.5rem;font-family:'JetBrains Mono',monospace">// upload screen recordings via Admin → Web Dev</p>
     <div class="video-grid" id="wVideos">
-      <div class="v-card">
-        <div class="v-thumb" style="padding:2rem;flex-direction:column;gap:.5rem">
-          <p style="font-size:.72rem;color:var(--dim);opacity:.5;font-family:monospace">// upload_demo_video(category="webdev")</p>
-        </div>
-        <div class="v-info"><h4>Your Web Project</h4><p style="font-family:monospace;font-size:.72rem">Upload a screen recording via Admin</p></div>
-      </div>
+      <div class="v-card"><div class="v-thumb" style="padding:2rem;flex-direction:column;gap:.5rem"><p style="font-size:.72rem;color:var(--dim);opacity:.5;font-family:'JetBrains Mono',monospace">// upload_demo_video(category="webdev")</p></div><div class="v-info"><h4>Your Web Project</h4><p style="font-family:'JetBrains Mono',monospace;font-size:.72rem">Upload a screen recording via Admin</p></div></div>
     </div>
   </section>
 
-  <!-- Projects -->
-  <section class="section" id="projects" style="background:var(--bg2);border-top:1px solid var(--acb)">
-    <div class="section-header">
-      <p class="overline">Portfolio</p>
-      <h2 style="font-family:'Space Grotesk',sans-serif;font-size:clamp(2rem,4vw,3rem);font-weight:700;margin-bottom:.5rem">Selected <em style="font-style:normal;color:var(--accent)">Projects</em></h2>
-      <p style="font-size:.78rem;color:var(--dim);margin-bottom:2.5rem;font-family:monospace">// upload screenshots via Admin to populate this section</p>
-    </div>
-    <div class="w-projects-grid" id="wProjects">
-      <div class="w-proj-card" data-num="01">
-        <div class="w-proj-url">// project_01</div>
-        <h3 class="w-proj-name">Your Next Project</h3>
-        <p class="w-proj-desc">Upload screenshots tagged with your tech stack and they'll appear here automatically.</p>
-        <div class="w-proj-tags"><span class="w-proj-tag">React</span><span class="w-proj-tag">Node.js</span><span class="w-proj-tag">PostgreSQL</span></div>
-        <div class="w-proj-screen"><div class="w-proj-ph" style="color:var(--dim);font-family:monospace;font-size:.7rem">upload screenshot in Admin</div></div>
-      </div>
-      <div class="w-proj-card" data-num="02">
-        <div class="w-proj-url">// project_02</div>
-        <h3 class="w-proj-name">Another Project</h3>
-        <p class="w-proj-desc">Add tags like "ecommerce", "dashboard", "mobile" to describe your work when uploading.</p>
-        <div class="w-proj-tags"><span class="w-proj-tag">Vue.js</span><span class="w-proj-tag">Python</span><span class="w-proj-tag">Docker</span></div>
-        <div class="w-proj-screen"><div class="w-proj-ph" style="color:var(--dim);font-family:monospace;font-size:.7rem">upload screenshot in Admin</div></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Marquee -->
-  <div class="marquee-wrap">
+  <!-- MARQUEE -->
+  <div class="marquee-wrap" style="position:relative;z-index:2">
     <div class="marquee-track">
       <span>REACT</span><span class="mdot">·</span><span>NEXT.JS</span><span class="mdot">·</span><span>NODE.JS</span><span class="mdot">·</span><span>TYPESCRIPT</span><span class="mdot">·</span><span>POSTGRESQL</span><span class="mdot">·</span><span>DOCKER</span><span class="mdot">·</span><span>AWS</span><span class="mdot">·</span><span>REACT</span><span class="mdot">·</span><span>NEXT.JS</span><span class="mdot">·</span><span>NODE.JS</span><span class="mdot">·</span><span>TYPESCRIPT</span><span class="mdot">·</span><span>POSTGRESQL</span><span class="mdot">·</span><span>DOCKER</span><span class="mdot">·</span><span>AWS</span><span class="mdot">·</span>
     </div>
   </div>
 
-  <!-- Video Modal -->
-  <div class="v-modal" id="vModal">
-    <div class="v-modal-inner">
-      <button class="v-modal-close">✕</button>
-      <video id="vModalVid" controls></video>
+  <!-- PROJECTS -->
+  <section class="w-projects" id="projects">
+    <p class="overline">Portfolio</p>
+    <h2>Selected <em>Projects</em></h2>
+    <p style="font-size:.75rem;color:var(--dim);margin:.5rem 0;font-family:'JetBrains Mono',monospace">// upload screenshots via Admin to populate</p>
+    <div class="w-proj-grid" id="wProjects">
+      <div class="w-proj-card" data-num="01"><div class="w-proj-url">// project_01</div><h3 class="w-proj-name">Your Next Project</h3><p class="w-proj-desc">Upload screenshots tagged with your tech stack and they appear here automatically.</p><div class="w-proj-tags"><span class="w-proj-tag">React</span><span class="w-proj-tag">Node.js</span><span class="w-proj-tag">PostgreSQL</span></div><div class="w-proj-screen"><div class="w-proj-ph">upload screenshot in Admin</div></div></div>
+      <div class="w-proj-card" data-num="02"><div class="w-proj-url">// project_02</div><h3 class="w-proj-name">Another Project</h3><p class="w-proj-desc">Add tags like "ecommerce", "dashboard", "mobile" when uploading.</p><div class="w-proj-tags"><span class="w-proj-tag">Vue.js</span><span class="w-proj-tag">Python</span><span class="w-proj-tag">Docker</span></div><div class="w-proj-screen"><div class="w-proj-ph">upload screenshot in Admin</div></div></div>
     </div>
+  </section>
+
+  <!-- CTA BAND -->
+  <div class="w-cta">
+    <h3>Got a site to <em>build?</em></h3>
+    <a href="#contact" class="btn-primary">Start a Project</a>
   </div>
 
-  <footer class="footer">
+  <!-- VIDEO MODAL -->
+  <div class="v-modal" id="vModal"><div class="v-modal-inner"><button class="v-modal-close">✕</button><video id="vModalVid" controls></video></div></div>
+
+  <!-- FOOTER -->
+  <footer class="footer" id="contact" style="position:relative;z-index:2">
     <div class="footer-inner">
       <div class="footer-top">
         <div class="footer-brand"><img src="../assets/logo.jpg" alt="PB" class="footer-logo-img"/><div><div class="footer-logo-text">PAULI<em>_B</em></div><p>Crafting extraordinary experiences.</p></div></div>
-        <nav class="footer-nav"><a href="graphics.html">Graphics</a><a href="webdev.html">Web Dev</a><a href="film.html">Film</a></nav>
+        <div class="footer-email-box">
+          <h4>Start a Project</h4>
+          <p>Have something to build? Let's write some great code together.</p>
+          <form class="footer-form stacked-form" id="contact-form" action="https://formspree.io/f/xeedlkgd" method="POST">
+            <div class="form-group"><input type="email" name="email" placeholder="Your email address" required class="footer-input"/></div>
+            <div class="form-group"><textarea name="message" placeholder="Describe your project..." required class="footer-textarea" rows="3"></textarea></div>
+            <button type="submit" class="footer-submit-btn"><span>Send Message</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+          </form>
+          <p id="form-status" style="font-size:.75rem;margin-top:.5rem;display:none;color:var(--accent)"></p>
+        </div>
+        <nav class="footer-nav"><a href="graphics.html">Graphics Design</a><a href="webdev.html">Web Development</a><a href="film.html">Film &amp; Motion</a><a href="../index.html">Home</a></nav>
       </div>
-      <div class="footer-bottom"><p>© 2025 Pauli_B. All rights reserved.</p><p class="footer-secret">// built with intention</p></div>
+      <div class="footer-bottom">
+        <div class="footer-legal"><p>© 2025 Pauli_B. All rights reserved.</p><p class="footer-secret">// built with intention</p></div>
+        <div class="footer-socials">
+          <a href="https://instagram.com/um_pauli_b" target="_blank" rel="noopener" class="social-icon" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+          <a href="https://twitter.com" target="_blank" rel="noopener" class="social-icon" aria-label="Twitter/X"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/></svg></a>
+          <a href="https://linkedin.com" target="_blank" rel="noopener" class="social-icon" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
+          <a href="https://github.com/pauli-bt" target="_blank" rel="noopener" class="social-icon" aria-label="GitHub"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg></a>
+        </div>
+      </div>
     </div>
   </footer>
 
@@ -184,9 +243,17 @@
   <script src="../js/gallery-loader.js"></script>
   <script src="../js/global.js"></script>
   <script>
-    document.addEventListener('DOMContentLoaded', () =>
-      loadPageFiles('webdev', { videos: 'wVideos', projects: 'wProjects' })
-    );
+    document.addEventListener('DOMContentLoaded', () => loadPageFiles('webdev', { videos:'wVideos', projects:'wProjects' }));
+    const form = document.getElementById('contact-form'), status = document.getElementById('form-status');
+    if (form) form.addEventListener('submit', async e => {
+      e.preventDefault(); const btn = form.querySelector('button[type=submit]');
+      btn.textContent = 'Sending…'; btn.disabled = true;
+      const res = await fetch(form.action, { method:'POST', body:new FormData(form), headers:{Accept:'application/json'} });
+      status.style.display = 'block';
+      if (res.ok) { status.textContent = '✓ Message sent! I\'ll get back to you soon.'; form.reset(); }
+      else { status.textContent = '✗ Something went wrong. Try again.'; status.style.color='#ef4444'; }
+      btn.textContent = 'Send Message'; btn.disabled = false;
+    });
   </script>
 </body>
 </html>

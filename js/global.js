@@ -1,4 +1,3 @@
-/* global.js — PAULI_B */
 (function () {
   'use strict';
 
@@ -7,38 +6,28 @@
   const label = document.getElementById('curLabel');
   if (cur) {
     let mx = 0, my = 0, rx = 0, ry = 0;
-
     document.addEventListener('mousemove', e => {
       mx = e.clientX; my = e.clientY;
-      cur.style.left = mx + 'px';
-      cur.style.top  = my + 'px';
+      cur.style.left = mx + 'px'; cur.style.top = my + 'px';
     });
-
-    // Smooth ring follow
+    const ring = cur.querySelector('.cur-ring');
     (function tick() {
-      rx += (mx - rx) * .1;
-      ry += (my - ry) * .1;
-      const ring = cur.querySelector('.cur-ring');
+      rx += (mx - rx) * .1; ry += (my - ry) * .1;
       if (ring) { ring.style.left = (rx - mx) + 'px'; ring.style.top = (ry - my) + 'px'; }
       requestAnimationFrame(tick);
     })();
-
-    // Cursor mode changes on discipline cards
+    // Cursor mode per discipline
+    const iconMap = { pencil:'✏️ Draw', code:'</> Code', reel:'🎬 Watch' };
     document.querySelectorAll('[data-cursor]').forEach(el => {
       const mode = el.dataset.cursor;
-      const icons = { pencil: '✏️ Draw', code: '💻 Code', reel: '🎬 Watch', default: '' };
       el.addEventListener('mouseenter', () => {
         cur.className = 'cur ' + mode;
-        if (label) { label.textContent = icons[mode] || ''; label.classList.toggle('show', !!icons[mode]); }
+        if (label) { label.textContent = iconMap[mode]||''; label.classList.toggle('show', !!iconMap[mode]); }
       });
-      el.addEventListener('mouseleave', () => {
-        cur.className = 'cur';
-        if (label) label.classList.remove('show');
-      });
+      el.addEventListener('mouseleave', () => { cur.className = 'cur'; if (label) label.classList.remove('show'); });
     });
-
-    // Hover scale on links/buttons
-    document.querySelectorAll('a, button, .disc-card, .v-card, .g-item').forEach(el => {
+    // Hover scale
+    document.querySelectorAll('a, button, .disc-card, .v-card, .g-item, .f-award-card, .social-icon').forEach(el => {
       el.addEventListener('mouseenter', () => cur.classList.add('hover'));
       el.addEventListener('mouseleave', () => cur.classList.remove('hover'));
     });
@@ -47,133 +36,81 @@
   /* ── NAV ────────────────────────────────────────────────── */
   const nav = document.getElementById('nav');
   if (nav) {
-    window.addEventListener('scroll', () => {
-      nav.classList.toggle('scrolled', window.scrollY > 60);
-    }, { passive: true });
+    const upd = () => nav.classList.toggle('scrolled', window.scrollY > 60);
+    window.addEventListener('scroll', upd, { passive:true }); upd();
   }
 
-  /* ── MOBILE MENU ────────────────────────────────────────── */
-  const burger  = document.getElementById('burger');
+  /* ── MOBILE MENU ─────────────────────────────────────────── */
+  const burger = document.getElementById('burger');
   const mobMenu = document.getElementById('mobMenu');
-  const mobClose= document.getElementById('mobClose');
+  const mobClose = document.getElementById('mobClose');
   if (burger && mobMenu) {
-    burger.addEventListener('click',  () => mobMenu.classList.add('open'));
+    burger.addEventListener('click', () => mobMenu.classList.add('open'));
     mobClose?.addEventListener('click', () => mobMenu.classList.remove('open'));
     mobMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => mobMenu.classList.remove('open')));
   }
 
   /* ── SCROLL REVEAL ──────────────────────────────────────── */
   const revEls = document.querySelectorAll('.reveal-up, .reveal-fade');
-  if (revEls.length) {
+  if (revEls.length && 'IntersectionObserver' in window) {
     const ro = new IntersectionObserver(entries => {
       entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); ro.unobserve(e.target); } });
-    }, { threshold: .12 });
+    }, { threshold:.12 });
     revEls.forEach(el => ro.observe(el));
-  }
+  } else { revEls.forEach(el => el.classList.add('in')); }
 
-  /* ── COUNT UP ───────────────────────────────────────────── */
+  /* ── COUNT UP ────────────────────────────────────────────── */
   document.querySelectorAll('[data-count]').forEach(el => {
     const ro = new IntersectionObserver(([e]) => {
       if (!e.isIntersecting) return;
-      const target = +el.dataset.count, dur = 1600;
-      const step = target / (dur / 16);
-      let cur = 0;
+      const target = +el.dataset.count;
+      const step = target / 90; let cur = 0;
       const t = setInterval(() => { cur += step; if (cur >= target) { el.textContent = target; clearInterval(t); } else el.textContent = Math.floor(cur); }, 16);
       ro.unobserve(el);
-    }, { threshold: .5 });
+    }, { threshold:.6 });
     ro.observe(el);
   });
 
-  /* ── GALLERY FILTER ─────────────────────────────────────── */
+  /* ── GALLERY FILTER ──────────────────────────────────────── */
   document.querySelectorAll('.filt').forEach(btn => {
     btn.addEventListener('click', () => {
-      document.querySelectorAll('.filt').forEach(b => b.classList.remove('active'));
+      btn.closest('.filter-row, .f-genres')?.querySelectorAll('.filt').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
       const f = btn.dataset.filter;
+      if (!f) return;
       document.querySelectorAll('.g-item').forEach(item => {
-        item.style.display = (f === 'all' || item.dataset.cat === f) ? '' : 'none';
+        item.style.display = (f==='all' || item.dataset.cat===f) ? '' : 'none';
       });
     });
   });
 
-  /* ── VIDEO MODAL ────────────────────────────────────────── */
+  /* ── VIDEO MODAL ─────────────────────────────────────────── */
   const vModal = document.getElementById('vModal');
   const vVid   = document.getElementById('vModalVid');
-  const vClose = document.querySelector('.v-modal-close');
-  if (vClose) vClose.addEventListener('click', closeModal);
-  if (vModal) vModal.addEventListener('click', e => { if (e.target === vModal) closeModal(); });
-  function closeModal() { if (vModal) { vModal.classList.remove('open'); vVid?.pause(); if (vVid) vVid.src = ''; } }
-  window.openVideo = function (src) { if (vModal && vVid) { vVid.src = src; vModal.classList.add('open'); vVid.play(); } };
+  document.querySelector('.v-modal-close')?.addEventListener('click', closeVModal);
+  vModal?.addEventListener('click', e => { if (e.target === vModal) closeVModal(); });
+  function closeVModal() { if (vModal) { vModal.classList.remove('open'); vVid?.pause(); if (vVid) vVid.src = ''; } }
+  window.openVideo = function(src) { if (vModal && vVid) { vVid.src = src; vModal.classList.add('open'); vVid.play().catch(()=>{}); } };
 
-  /* ── FILM STRIP DRAG ────────────────────────────────────── */
+  /* ── FILM STRIP DRAG ─────────────────────────────────────── */
   const fStrip = document.getElementById('fStrip');
   if (fStrip) {
     let dn = false, sx, sl;
-    fStrip.addEventListener('mousedown', e => { dn = true; sx = e.pageX - fStrip.offsetLeft; sl = fStrip.scrollLeft; });
-    fStrip.addEventListener('mouseleave', () => dn = false);
-    fStrip.addEventListener('mouseup',   () => dn = false);
-    fStrip.addEventListener('mousemove', e => { if (!dn) return; e.preventDefault(); fStrip.scrollLeft = sl - (e.pageX - fStrip.offsetLeft - sx) * 2; });
+    fStrip.addEventListener('mousedown',  e => { dn=true; sx=e.pageX-fStrip.offsetLeft; sl=fStrip.scrollLeft; });
+    fStrip.addEventListener('mouseleave', () => dn=false);
+    fStrip.addEventListener('mouseup',    () => dn=false);
+    fStrip.addEventListener('mousemove',  e => { if (!dn) return; e.preventDefault(); fStrip.scrollLeft = sl - (e.pageX-fStrip.offsetLeft-sx)*2; });
+    let tx;
+    fStrip.addEventListener('touchstart', e => { tx=e.touches[0].clientX; sl=fStrip.scrollLeft; }, {passive:true});
+    fStrip.addEventListener('touchmove',  e => { fStrip.scrollLeft = sl-(e.touches[0].clientX-tx)*1.5; }, {passive:true});
   }
 
-  /* ── GENRE FILTER (film) ────────────────────────────────── */
-  document.querySelectorAll('.filt').forEach(btn => {
-    btn.addEventListener('click', () => {
-      document.querySelectorAll('.filt').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-    });
-  });
-
-  /* ── HERO ANIMATE IN ────────────────────────────────────── */
+  /* ── HERO LOAD REVEAL ────────────────────────────────────── */
   window.addEventListener('load', () => {
-    document.querySelectorAll('.reveal-up, .reveal-fade').forEach((el, i) => {
-      if (isInViewport(el)) setTimeout(() => el.classList.add('in'), i * 80);
+    document.querySelectorAll('.reveal-up, .reveal-fade').forEach(el => {
+      const r = el.getBoundingClientRect();
+      if (r.top < window.innerHeight) el.classList.add('in');
     });
   });
-  function isInViewport(el) {
-    const r = el.getBoundingClientRect();
-    return r.top < window.innerHeight && r.bottom > 0;
-  }
 
 })();
-
-
-// Live Email Form Handler
-const form = document.getElementById("contact-form");
-const status = document.getElementById("form-status");
-
-if (form) {
-  form.addEventListener("submit", async function(event) {
-    event.preventDefault(); // Stop page reload
-    
-    status.style.display = "block";
-    status.style.color = "var(--dim)";
-    status.innerText = "Sending message...";
-
-    const data = new FormData(event.target);
-    
-    try {
-      const response = await fetch(form.action, {
-        method: form.method,
-        body: data,
-        headers: { 'Accept': 'application/json' }
-      });
-      
-      if (response.ok) {
-        status.style.color = "var(--accent)"; // Saba Gold success accent
-        status.innerText = "Thanks! Your message has been sent.";
-        form.reset(); // Clear input field
-      } else {
-        const responseData = await response.json();
-        if (Object.hasOwn(responseData, 'errors')) {
-          status.innerText = responseData.errors.map(error => error.message).join(", ");
-        } else {
-          status.innerText = "Oops! There was a problem submitting your form.";
-        }
-        status.style.color = "#ff4a4a"; // Red error indicator
-      }
-    } catch (error) {
-      status.style.color = "#ff4a4a";
-      status.innerText = "Oops! Net network error occurred. Try again.";
-    }
-  });
-}
